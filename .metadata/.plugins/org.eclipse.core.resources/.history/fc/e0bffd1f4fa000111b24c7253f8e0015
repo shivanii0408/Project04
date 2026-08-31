@@ -1,0 +1,32 @@
+package in.co.rays.proj4.test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import in.co.rays.proj4.bean.StudentBean;
+import in.co.rays.proj4.model.StudentModel;
+
+public class TestStudentModel {
+public static void main(String[] args) throws Exception {
+	testAdd();
+}
+
+private static void testAdd() throws ParseException {
+	
+	StudentModel model= new StudentModel();
+	StudentBean bean= new StudentBean();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+
+	bean.setCollegeid(101);
+	bean.setCollegeName("Acropolis");
+	bean.setFirstName("Shivani");
+    bean.setLastName("Gehlot");
+	bean.setDob(sdf.parse("04-08-2004"));
+	bean.setMobileNo("7830943902");
+	bean.setEmail("gehlotshivani@gmail.com");
+	
+	
+	model.add(bean);
+}
+}

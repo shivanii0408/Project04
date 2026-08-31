@@ -1,0 +1,67 @@
+package in.co.rays.proj4.test;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import in.co.rays.proj4.bean.StudentBean;
+import in.co.rays.proj4.model.MarksheetModel;
+import in.co.rays.proj4.model.StudentModel;
+
+public class TestStudentModel {
+public static void main(String[] args) throws Exception {
+	testAdd();
+	//testDelete();
+	//testUpdate();
+}
+
+
+
+private static void testUpdate() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+private static void testAdd() throws ParseException {
+	
+	StudentModel model= new StudentModel();
+	StudentBean bean= new StudentBean();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+
+	bean.setCollegeid(102);
+
+	bean.setCollegeName("IPS Academy");
+
+	bean.setFirstName("Priya");
+
+	bean.setLastName("Sharma");
+
+	bean.setDob(sdf.parse("15-06-2003"));
+
+	bean.setMobileNo("9876543210");
+
+	bean.setEmail("priyasharma@gmail.com");
+
+	bean.setCreatedBy("Admin");
+
+	bean.setModifiedBy("Admin");
+
+	bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+
+	bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+	
+	model.add(bean);
+}
+
+private static void testDelete() {
+
+	StudentModel model = new StudentModel();
+
+	model.delete(4);
+
+}
+}

@@ -1,0 +1,110 @@
+package in.co.rays.proj4.test;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import in.co.rays.proj4.bean.StudentBean;
+import in.co.rays.proj4.model.MarksheetModel;
+import in.co.rays.proj4.model.StudentModel;
+
+public class TestStudentModel {
+public static void main(String[] args) throws Exception {
+	testAdd();
+	//testDelete();
+	testUpdate();
+}
+
+
+
+private static void testUpdate() throws ParseException {
+
+	StudentBean bean = new StudentBean();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	bean.setId(2);
+	bean.setCollegeid(2);
+	bean.setCollegeName("Medicaps University");
+	bean.setFirstName("Shivani");
+	bean.setLastName("Verma");
+	bean.setDob(sdf.parse("2003-08-21"));
+	bean.setMobileNo("9876543211");
+	bean.setEmail("shivani@gmail.com");
+
+//	bean.setCreatedBy("admin");
+	bean.setModifiedBy("Tanisha");
+//	bean.setCreatedDateTime(new Timestamp(new Date().getTime()));
+	bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+
+}
+
+
+private static void testAdd() throws ParseException {
+	
+	StudentModel model= new StudentModel();
+	StudentBean bean= new StudentBean();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+
+	bean.setCollegeid(102);
+	bean.setCollegeName("IPS Academy");
+	bean.setFirstName("Priya");
+	bean.setLastName("Sharma");
+	bean.setDob(sdf.parse("15-06-2003"));
+	bean.setMobileNo("9876543210");
+	bean.setEmail("priyasharma@gmail.com");
+	bean.setCreatedBy("Admin");
+	bean.setModifiedBy("Admin");
+	bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+	bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+	
+	model.add(bean);
+}
+
+private static void testDelete() {
+
+	StudentModel model = new StudentModel();
+
+	model.delete(4);
+
+}
+
+public static void testFindByPk() {
+
+	StudentModel model = new StudentModel();
+
+	StudentBean bean = new StudentBean();
+
+	bean = model.findByPK(1);
+
+	System.out.println(bean.getId());
+	System.out.println(bean.getCollegeid());
+	System.out.println(bean.getCollegeName());
+	System.out.println(bean.getFirstName());
+	System.out.println(bean.getLastName());
+	System.out.println(bean.getDob());
+	System.out.println(bean.getMobileNo());
+	System.out.println(bean.getEmail());
+
+}
+
+public static void testFindByName() {
+
+	StudentModel model = new StudentModel();
+
+	StudentBean bean = new StudentBean();
+
+	bean = model.findByName("shivani@gmail.com");
+
+	System.out.println(bean.getId());
+	System.out.println(bean.getCollegeid());
+	System.out.println(bean.getCollegeName());
+	System.out.println(bean.getFirstName());
+	System.out.println(bean.getLastName());
+	System.out.println(bean.getDob());
+	System.out.println(bean.getMobileNo());
+	System.out.println(bean.getEmail());
+}
+}

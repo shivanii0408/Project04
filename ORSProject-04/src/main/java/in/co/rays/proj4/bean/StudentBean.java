@@ -1,0 +1,84 @@
+package in.co.rays.proj4.bean;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+
+public class StudentBean extends BaseBean {
+
+	private long collegeid;
+	private String collegeName;
+	private String firstName;
+	private String lastName;
+	private Date dob;
+	private String MobileNo;
+	private String email;
+	
+	
+	public Long getCollegeid() {
+		return collegeid;
+	}
+	public void setCollegeid(long collegeid) {
+		this.collegeid = collegeid;
+	}
+	public String getCollegeName() {
+		return collegeName;
+	}
+	public void setCollegeName(String collegeName) {
+		this.collegeName = collegeName;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public Date getDob() {
+		return dob;
+	}
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+	public String getMobileNo() {
+		return MobileNo;
+	}
+	public void setMobileNo(String mobileNo) {
+		MobileNo = mobileNo;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	@Override
+	public void setResultset(ResultSet rs) {
+		try {
+			super.setResultset(rs);
+			this.setCollegeid(rs.getLong(2));
+			this.setCollegeName(rs.getString(3));
+			this.setFirstName(rs.getString(4));
+			this.setLastName(rs.getString(5));
+			this.setDob(rs.getDate(6));
+			this.setMobileNo(rs.getString(7));
+			this.setEmail(rs.getString(8));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

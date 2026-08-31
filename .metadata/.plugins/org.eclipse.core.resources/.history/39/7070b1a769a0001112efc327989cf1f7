@@ -1,0 +1,81 @@
+package in.co.rays.proj4.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import in.co.rays.proj4.bean.SubjectBean;
+import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
+import in.co.rays.proj4.util.JDBCDataSource;
+
+public class SubjectModel extends BaseModel<SubjectBean> {
+
+	@Override
+	public long add(SubjectBean bean)
+			throws ApplicationException, DuplicateRecordException {
+
+		Connection conn = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+
+			long pk = nextPK();
+			bean.setId(pk);
+
+			PreparedStatement pstmt = conn.prepareStatement(
+					"insert into " + getTable()
+					+ " (id, name, description, courseId, createdBy, modifiedBy, createdDatetime, modifiedDatetime)"
+					+ " values(?,?,?,?,?,?,?,?)");
+
+			pstmt.setLong(1, pk);
+			pstmt.setString(2, bean.getName());
+			pstmt.setString(3, bean.getDescription());
+			pstmt.setLong(4, bean.getCourseId());
+			pstmt.setString(5, bean.getCreatedBy());
+			pstmt.setString(6, bean.getModifiedBy());
+			pstmt.setTimestamp(7, bean.getCreatedDatetime());
+			pstmt.setTimestamp(8, bean.getModifiedDatetime());
+
+			pstmt.executeUpdate();
+
+			conn.commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			JDBCDataSource.trnRollBack(conn);
+
+		} finally {
+
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean.getId();
+	}
+
+	@Override
+	public void update(SubjectBean bean)
+			throws ApplicationException, DuplicateRecordException {
+
+	}
+
+	@Override
+	public String getWhereClause(SubjectBean bean) {
+
+		return null;
+	}
+
+	@Override
+	public String getTable() {
+
+		return "st_subject";
+	}
+
+	@Override
+	public SubjectBean getBean() {
+
+		return null;
+	}
+}

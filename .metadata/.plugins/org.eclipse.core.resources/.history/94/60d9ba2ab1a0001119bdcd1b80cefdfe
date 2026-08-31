@@ -1,0 +1,26 @@
+package in.co.rays.proj4.test;
+
+import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.model.FacultyModel;
+
+public class TestFacultyModel {
+public static void main(String[] args) {
+	testAdd();
+}
+
+private static void testAdd() {
+	FacultyModel model= new FacultyModel();
+	FacultyBean bean= new FacultyBean();
+	
+	bean.setCollegeId(120);
+	bean.setCollegeName("Acropolis");
+	bean.setFirstName("Shreya");
+	bean.setLastName("Adsule");
+	bean.setEmail("adsule@gmail.com");
+	bean.setMobileNo("876959594");
+	bean.setAddress("Indore");
+	bean.setGender("female");
+	bean.setDob("");
+	
+}
+}

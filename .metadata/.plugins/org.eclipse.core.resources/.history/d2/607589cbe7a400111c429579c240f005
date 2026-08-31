@@ -1,0 +1,77 @@
+package in.co.rays.proj4.test;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.model.MarksheetModel;
+import in.co.rays.proj4.model.UserModel;
+
+public class TestUserModel {
+	public static void main(String[] args) throws Exception {
+	//testAdd();
+	testUpdate();
+	//testDelete();
+}
+
+
+
+private static void testUpdate() throws ParseException {
+	
+	UserModel model = new UserModel();
+	UserBean bean = new UserBean();
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	bean.setId(1);
+	bean.setFirstName("Sakshi");
+	bean.setLastName("Gupta");
+	bean.setLogin("gehlotshivani@gmail.com");
+	bean.setPassword("shivani@123");
+	bean.setDob(sdf.parse("04-08-2004"));
+	bean.setMobileNo("974983448");
+	bean.setRoleId(23);
+	bean.setUnsuccessful_login(2);
+	bean.setGender("female");
+	bean.setLast_login(sdf.parse("04-08-2026"));
+	bean.setUserLock("1234");
+	bean.setRegisteredIp("0920903");
+	bean.setLastLoginIp("0990909");
+
+	 model.update(bean);	
+	
+	}
+
+
+
+private static void testAdd() throws ParseException {
+	// TODO Auto-generated method stub
+	UserModel model = new UserModel();
+	UserBean bean = new UserBean();
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+	bean.setFirstName("Shivani");
+	bean.setLastName("Gehlot");
+	bean.setLogin("gehlotshivani@gmail.com");
+	bean.setPassword("shivani@123");
+	bean.setDob(sdf.parse("04-08-2004"));
+	bean.setMobileNo("974983448");
+	bean.setRoleId(23);
+	bean.setUnsuccessful_login(2);
+	bean.setGender("female");
+	bean.setLast_login(sdf.parse("04-08-2026"));
+	bean.setUserLock("1234");
+	bean.setRegisteredIp("0920903");
+	bean.setLastLoginIp("0990909");
+
+	 model.add(bean);	
+}
+private static void testDelete() {
+
+	UserModel model = new UserModel();
+
+	model.delete(2);
+
+}
+}

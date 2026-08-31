@@ -1,0 +1,22 @@
+package in.co.rays.proj4.test;
+
+import in.co.rays.proj4.bean.CourseBean;
+import in.co.rays.proj4.model.CourseModel;
+
+public class TestCourseModel {
+public static void main(String[] args) {
+	
+	testAdd();
+}
+
+private static void testAdd() {
+	
+	CourseModel model= new CourseModel();
+	CourseBean bean= new CourseBean();
+	
+	bean.setName("Java");
+	bean.setDescription("Basic Java ");
+	bean.setDuration("5 months");
+	
+}
+}

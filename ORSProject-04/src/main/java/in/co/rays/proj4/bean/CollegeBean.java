@@ -1,0 +1,64 @@
+package in.co.rays.proj4.bean;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class CollegeBean extends BaseBean { 
+	
+private String name;
+private String address;
+private String State;
+private String city;
+private String phoneNo;
+
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public String getAddress() {
+	return address;
+}
+public void setAddress(String address) {
+	this.address = address;
+}
+public String getState() {
+	return State;
+}
+public void setState(String state) {
+	State = state;
+}
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
+public String getPhoneNo() {
+	return phoneNo;
+}
+public void setPhoneNo(String phoneNo) {
+	this.phoneNo = phoneNo;
+}
+@Override
+public String getValue() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public void setResultset(ResultSet rs) {
+	try {
+		super.setResultset(rs);
+		this.setName(rs.getString(2));
+		this.setAddress(rs.getString(3));
+		this.setState(rs.getString(4));
+		this.setCity(rs.getString(5));
+		this.setPhoneNo(rs.getString(6));
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+
+}
+}

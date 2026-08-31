@@ -1,0 +1,27 @@
+package in.co.rays.proj4.test;
+
+import in.co.rays.proj4.bean.SubjectBean;
+import in.co.rays.proj4.model.SubjectModel;
+
+public class TestSubjectModel {
+
+	public static void main(String[] args) {
+		testAdd();
+		
+	}
+
+	private static void testAdd() {
+		
+		SubjectModel model = new SubjectModel();
+		SubjectBean bean= new SubjectBean();
+		
+		bean.setName("Maths");
+		bean.setCourseId(121);
+		bean.setDescription("mathematics course");
+		
+		
+		model.add(bean);
+		
+	}
+	
+}

@@ -1,0 +1,84 @@
+package in.co.rays.proj4.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
+import in.co.rays.proj4.util.JDBCDataSource;
+
+public class MarksheetModel extends BaseModel<MarksheetBean> {
+
+	@Override
+	public long add(MarksheetBean bean)
+			throws ApplicationException, DuplicateRecordException {
+
+		Connection conn = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+
+			long pk = nextPK();
+			bean.setId(pk);
+
+			PreparedStatement pstmt = conn.prepareStatement(
+					"insert into " + getTable()
+					+ " (id, rollNo, studentId, name, physics, chemistry, maths, "
+					+ "createdBy, modifiedBy, createdDatetime, modifiedDatetime) "
+					+ "values(?,?,?,?,?,?,?,?,?,?,?)");
+
+			pstmt.setLong(1, pk);
+			pstmt.setString(2, bean.getRollNo());
+			pstmt.setInt(3, bean.getStudentId());
+			pstmt.setString(4, bean.getName());
+			pstmt.setInt(5, bean.getPhysics());
+			pstmt.setInt(6, bean.getChemistry());
+			pstmt.setInt(7, bean.getMaths());
+			pstmt.setString(8, bean.getCreatedBy());
+			pstmt.setString(9, bean.getModifiedBy());
+			pstmt.setTimestamp(10, bean.getCreatedDatetime());
+			pstmt.setTimestamp(11, bean.getModifiedDatetime());
+
+
+			conn.commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			JDBCDataSource.trnRollBack(conn);
+
+		} finally {
+
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean.getId();
+	}
+
+	@Override
+	public void update(MarksheetBean bean)
+			throws ApplicationException, DuplicateRecordException {
+
+	}
+
+	@Override
+	public String getWhereClause(MarksheetBean bean) {
+
+		return null;
+	}
+
+	@Override
+	public String getTable() {
+
+		return "st_marksheet";
+	}
+
+	@Override
+	public MarksheetBean getBean() {
+
+		return null;
+	}
+}

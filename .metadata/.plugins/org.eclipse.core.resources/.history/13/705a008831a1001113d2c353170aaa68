@@ -1,0 +1,40 @@
+package in.co.rays.proj4.test;
+
+import in.co.rays.proj4.bean.CourseBean;
+import in.co.rays.proj4.model.CourseModel;
+
+public class TestCourseModel {
+public static void main(String[] args) {
+	
+	//testAdd();
+	testUpdate();
+}
+
+private static void testAdd() {
+	
+	CourseModel model= new CourseModel();
+	CourseBean bean= new CourseBean();
+	
+	bean.setName("Java");
+	bean.setDescription("Basic Java ");
+	bean.setDuration("5 months");
+	
+	model.add(bean);
+}
+
+
+
+private static void testUpdate() {
+
+    CourseModel model = new CourseModel();
+    CourseBean bean = new CourseBean();
+
+    bean.setId(1);
+    bean.setName("Advanced Java");
+    bean.setDescription("Advanced Java Programming");
+    bean.setDuration("6 months");
+
+    model.update(bean);
+    
+}
+}

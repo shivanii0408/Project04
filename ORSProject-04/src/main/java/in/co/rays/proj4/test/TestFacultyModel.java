@@ -1,0 +1,145 @@
+package in.co.rays.proj4.test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
+
+import in.co.rays.proj4.bean.CourseBean;
+import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.model.CourseModel;
+import in.co.rays.proj4.model.FacultyModel;
+import in.co.rays.proj4.model.MarksheetModel;
+
+public class TestFacultyModel {
+	public static void main(String[] args) throws Exception {
+		// testAdd();
+		// testUpdate();
+		// testDelete();
+		// testFindByPk();
+		//testFindByEmail();
+		testSearch();
+	}
+
+	private static void testSearch() {
+		
+		FacultyModel model = new FacultyModel();
+		FacultyBean bean = new FacultyBean();
+		
+		bean.setCollegeName("IIST");
+		
+		List<FacultyBean> list = model.search(bean, 1, 5);
+
+		Iterator<FacultyBean> it = list.iterator();
+		while (it.hasNext()) {
+			bean = it.next();
+			
+			System.out.println(bean.getId());
+			System.out.println(bean.getCollegeId());
+			System.out.println(bean.getCollegeName());
+			System.out.println(bean.getFirstName());
+			System.out.println(bean.getLastName());
+			System.out.println(bean.getEmail());
+			System.out.println(bean.getMobileNo());
+			System.out.println(bean.getAddress());
+			System.out.println(bean.getDob());
+			System.out.println(bean.getGender());
+			System.out.println(bean.getDob());
+			
+		}
+	}
+
+	private static void testUpdate() throws ParseException {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+		FacultyModel model = new FacultyModel();
+		FacultyBean bean = new FacultyBean();
+
+		bean.setId(2);
+
+		bean.setCollegeId(125);
+		bean.setCollegeName("IIST");
+		bean.setFirstName("Priya");
+		bean.setLastName("Sharma");
+		bean.setEmail("priya.sharma@gmail.com");
+		bean.setMobileNo("9876543210");
+		bean.setAddress("Bhopal");
+		bean.setGender("female");
+		bean.setDob(sdf.parse("15-06-2003"));
+
+		bean.setModifiedBy("admin");
+
+		model.update(bean);
+	}
+
+	private static void testAdd() throws Exception {
+		FacultyModel model = new FacultyModel();
+		FacultyBean bean = new FacultyBean();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+		bean.setCollegeId(125);
+		bean.setCollegeName("Medicaps");
+		bean.setFirstName("Priya");
+		bean.setLastName("Sharma");
+		bean.setEmail("priya.sharma@gmail.com");
+		bean.setMobileNo("9876543210");
+		bean.setAddress("Bhopal");
+		bean.setGender("female");
+		bean.setDob(sdf.parse("15-06-2003"));
+
+		model.add(bean);
+
+	}
+
+	private static void testDelete() {
+
+		FacultyModel model = new FacultyModel();
+
+		model.delete(1);
+
+	}
+
+	public static void testFindByPk() {
+
+		FacultyModel model = new FacultyModel();
+		FacultyBean bean = new FacultyBean();
+
+		bean = model.findByPK(2);
+
+		System.out.println(bean.getId());
+		System.out.println(bean.getCollegeId());
+		System.out.println(bean.getCollegeName());
+		System.out.println(bean.getFirstName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getEmail());
+		System.out.println(bean.getMobileNo());
+		System.out.println(bean.getAddress());
+		System.out.println(bean.getGender());
+		System.out.println(bean.getDob());
+
+	}
+
+	private static void testFindByEmail() {
+		// TODO Auto-generated method stub
+
+		FacultyModel model = new FacultyModel();
+		FacultyBean bean = new FacultyBean();
+
+		bean = model.findByEmail("IIST");
+
+		System.out.println(bean.getId());
+		System.out.println(bean.getCollegeId());
+		System.out.println(bean.getCollegeName());
+		System.out.println(bean.getFirstName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getEmail());
+		System.out.println(bean.getMobileNo());
+		System.out.println(bean.getAddress());
+		System.out.println(bean.getGender());
+		System.out.println(bean.getDob());
+
+	}
+
+}

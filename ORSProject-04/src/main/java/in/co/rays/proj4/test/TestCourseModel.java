@@ -1,0 +1,105 @@
+package in.co.rays.proj4.test;
+
+import java.util.Iterator;
+import java.util.List;
+
+import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.bean.CourseBean;
+
+import in.co.rays.proj4.model.CourseModel;
+
+public class TestCourseModel {
+public static void main(String[] args) {
+	
+	//testAdd();
+	//testUpdate();
+	//testDelete();
+	//testFindByPk();
+	//testFindByName();
+	testSearch();
+}
+
+private static void testSearch() {
+	// TODO Auto-generated method stub
+	CourseModel model= new CourseModel();
+	CourseBean bean= new CourseBean();
+	
+	bean.setName("Java");
+	
+	List<CourseBean> list = model.search(bean, 1, 5);
+
+	Iterator<CourseBean> it = list.iterator();
+	while (it.hasNext()) {
+		bean = it.next();
+		System.out.println(bean.getId());
+		System.out.println(bean.getName());
+		System.out.println(bean.getDescription());
+		System.out.println(bean.getDuration());
+	}
+}
+
+
+private static void testAdd() {
+	
+	CourseModel model= new CourseModel();
+	CourseBean bean= new CourseBean();
+	
+	bean.setName("Java");
+	bean.setDescription("Basic Java ");
+	bean.setDuration("5 months");
+	
+	model.add(bean);
+}
+
+
+
+private static void testUpdate() {
+
+    CourseModel model = new CourseModel();
+    CourseBean bean = new CourseBean();
+
+    bean.setId(1);
+    bean.setName("Advanced Java");
+    bean.setDescription("Advanced Java Programming");
+    bean.setDuration("6 months");
+
+    model.update(bean);
+    
+}
+
+private static void testDelete() {
+
+	CourseModel model = new CourseModel();
+
+	model.delete(2);
+}
+
+public static void testFindByPk() {
+
+	CourseModel model = new CourseModel();
+
+	CourseBean bean = new CourseBean();
+
+	bean = model.findByPK(1);
+
+	System.out.println(bean.getId());
+	System.out.println(bean.getName());
+	System.out.println(bean.getDescription());
+	System.out.println(bean.getDuration());
+	
+}
+
+public static void testFindByName() {
+
+	CourseModel model = new CourseModel();
+
+	CourseBean bean = new CourseBean();
+
+	bean = model.findByName("Java");
+
+	System.out.println(bean.getId());
+	System.out.println(bean.getName());
+	System.out.println(bean.getDescription());
+	System.out.println(bean.getDuration());
+}
+}

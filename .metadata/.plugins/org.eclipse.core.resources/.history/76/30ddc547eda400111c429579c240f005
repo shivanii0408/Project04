@@ -1,0 +1,95 @@
+package in.co.rays.proj4.test;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
+import in.co.rays.proj4.bean.SubjectBean;
+import in.co.rays.proj4.model.StudentModel;
+import in.co.rays.proj4.model.SubjectModel;
+
+public class TestSubjectModel {
+
+	public static void main(String[] args) {
+		//testAdd();
+		//testUpdate();
+		//testDelete();
+		//testFindByPk();
+		 testFindByName();
+	}
+
+	private static void testAdd() {
+
+		SubjectModel model = new SubjectModel();
+		SubjectBean bean = new SubjectBean();
+
+		bean.setName("Maths");
+		bean.setCourseId(121);
+		bean.setDescription("mathematics course");
+
+		bean.setCreatedBy("Admin");
+		bean.setModifiedBy("Admin");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		model.add(bean);
+
+	}
+
+	
+	private static void testUpdate() {
+
+		SubjectModel model = new SubjectModel();
+		SubjectBean bean = new SubjectBean();
+
+		bean.setId(1);
+		bean.setName("Physics");
+		bean.setCourseId(121);
+		bean.setDescription("mathematics course");
+
+		bean.setCreatedBy("Admin");
+		bean.setModifiedBy("Admin");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		model.add(bean);
+
+	}
+	
+	private static void testDelete() {
+
+		SubjectModel model = new SubjectModel();
+
+		model.delete(2);
+
+	}
+
+	
+	public static void testFindByPk() {
+
+		SubjectModel model = new SubjectModel();
+
+		SubjectBean bean = new SubjectBean();
+
+		bean = model.findByPK(3);
+
+		System.out.println(bean.getId());
+		System.out.println(bean.getName());
+		System.out.println(bean.getDescription());
+		System.out.println(bean.getCourseId());
+
+	}
+
+	public static void testFindByName() {
+
+		SubjectModel model = new SubjectModel();
+
+		SubjectBean bean = new SubjectBean();
+
+		bean = model.findByName("Physics");
+
+		System.out.println(bean.getId());
+		System.out.println(bean.getName());
+		System.out.println(bean.getDescription());
+		System.out.println(bean.getCourseId());
+	}
+}

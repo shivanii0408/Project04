@@ -1,0 +1,25 @@
+package in.co.rays.proj4.test;
+
+import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.model.MarksheetModel;
+
+public class TestMarksheetModel {
+public static void main(String[] args) {
+	testAdd();
+}
+
+private static void testAdd() {
+	
+	MarksheetModel model= new MarksheetModel();
+	MarksheetBean bean= new MarksheetBean();
+	
+	bean.setRollNo("0483982");
+	bean.setStudentId(45);
+	bean.setName("Shivani");
+	bean.setPhysics(45);
+	bean.setChemistry(67);
+	bean.setMaths(56);
+	
+	model.add(bean);
+}
+}

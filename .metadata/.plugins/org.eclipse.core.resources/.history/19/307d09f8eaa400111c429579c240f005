@@ -1,0 +1,86 @@
+package in.co.rays.proj4.test;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
+import in.co.rays.proj4.bean.RoleBean;
+import in.co.rays.proj4.model.MarksheetModel;
+import in.co.rays.proj4.model.RoleModel;
+
+public class TestRoleModel {
+	public static void main(String[] args) {
+		// testAdd();
+		// testUpdate();
+		// testDelete();
+		testFindByPk();
+		// testFindByName();
+
+	}
+
+	private static void testAdd() {
+		RoleModel model = new RoleModel();
+		RoleBean bean = new RoleBean();
+
+		bean.setName("Admin");
+		bean.setDescription("Admin role");
+		bean.setCreatedBy("Admin");
+		bean.setModifiedBy("Admin");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		model.add(bean);
+
+	}
+
+	private static void testUpdate() {
+		RoleModel model = new RoleModel();
+		RoleBean bean = new RoleBean();
+
+		bean.setId(1);
+		bean.setName("Student");
+		bean.setDescription("Student role");
+		bean.setCreatedBy("Student");
+		bean.setModifiedBy("Student");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		model.add(bean);
+
+	}
+
+	private static void testDelete() {
+
+		RoleModel model = new RoleModel();
+
+		model.delete(2);
+
+	}
+
+	public static void testFindByPk() {
+
+		RoleModel model = new RoleModel();
+
+		RoleBean bean = new RoleBean();
+
+		bean = model.findByPK(1);
+
+		System.out.println(bean.getId());
+		System.out.println(bean.getName());
+		System.out.println(bean.getDescription());
+
+	}
+
+	public static void testFindByName() {
+
+		RoleModel model = new RoleModel();
+
+		RoleBean bean = new RoleBean();
+
+		bean = model.findByName("Student");
+
+		System.out.println(bean.getId());
+		System.out.println(bean.getName());
+		System.out.println(bean.getDescription());
+
+	}
+}

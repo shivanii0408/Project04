@@ -1,0 +1,107 @@
+package in.co.rays.proj4.test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import in.co.rays.proj4.bean.CourseBean;
+import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.model.CourseModel;
+import in.co.rays.proj4.model.FacultyModel;
+import in.co.rays.proj4.model.MarksheetModel;
+
+public class TestFacultyModel {
+public static void main(String[] args) throws Exception {
+	//testAdd();
+	//testUpdate();
+	//testDelete();
+	testFindByPk();
+	//testFindByName();
+}
+
+private static void testUpdate() throws ParseException {
+	
+	
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+
+
+	    FacultyModel model = new FacultyModel();
+	    FacultyBean bean = new FacultyBean();
+
+	    bean.setId(2);
+
+	    bean.setCollegeId(125);
+	    bean.setCollegeName("IIST");
+	    bean.setFirstName("Priya");
+	    bean.setLastName("Sharma");
+	    bean.setEmail("priya.sharma@gmail.com");
+	    bean.setMobileNo("9876543210");
+	    bean.setAddress("Bhopal");
+	    bean.setGender("female");
+	    bean.setDob(sdf.parse("15-06-2003"));
+
+	    bean.setModifiedBy("admin");
+
+	    model.update(bean);
+}
+
+private static void testAdd() throws Exception {
+	FacultyModel model= new FacultyModel();
+	FacultyBean bean= new FacultyBean();
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+	bean.setCollegeId(125);
+	bean.setCollegeName("Medicaps");
+	bean.setFirstName("Priya");
+	bean.setLastName("Sharma");
+	bean.setEmail("priya.sharma@gmail.com");
+	bean.setMobileNo("9876543210");
+	bean.setAddress("Bhopal");
+	bean.setGender("female");
+	bean.setDob(sdf.parse("15-06-2003"));
+	
+	
+	model.add(bean);
+	
+}
+
+private static void testDelete() {
+
+	FacultyModel model = new FacultyModel();
+
+	model.delete(1);
+
+}
+
+public static void testFindByPk() {
+
+	CourseModel model = new CourseModel();
+
+	CourseBean bean = new CourseBean();
+
+	bean = model.findByPK(1);
+
+	System.out.println(bean.getId());
+	System.out.println(bean.getName());
+	System.out.println(bean.getDescription());
+	System.out.println(bean.getDuration());
+	
+}
+
+public static void testFindByName() {
+
+	CourseModel model = new CourseModel();
+
+	CourseBean bean = new CourseBean();
+
+	bean = model.findByName("Java");
+
+	System.out.println(bean.getId());
+	System.out.println(bean.getName());
+	System.out.println(bean.getDescription());
+	System.out.println(bean.getDuration());
+}
+
+}
