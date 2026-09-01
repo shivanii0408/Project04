@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -108,7 +109,30 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 	
 	@Override
 	public String getWhereClause(SubjectBean bean) {
-		return null;
+
+	    StringBuffer sql = new StringBuffer(" ");
+
+	    if (bean != null) {
+
+	        if (bean.getId() > 0) {
+	            sql.append(" and id = " + bean.getId());
+	        }
+
+	        if (bean.getName() != null && bean.getName().length() > 0) {
+	            sql.append(" and name like '" + bean.getName() + "'");
+	        }
+	        
+	        if (bean.getCourseId() > 0) {
+	            sql.append(" and courseid = " + bean.getCourseId());
+	        }
+
+
+	        if (bean.getDescription() != null && bean.getDescription().length() > 0) {
+	            sql.append(" and description like '" + bean.getDescription() + "'");
+	        }
+	    }
+
+	    return sql.toString();
 	}
 
 	@Override

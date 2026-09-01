@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -15,7 +16,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
-		
+
 		int pk = 0;
 
 		StudentBean existBean = findByEmail(bean.getEmail());
@@ -23,15 +24,14 @@ public class StudentModel extends BaseModel<StudentBean> {
 		if (existBean != null) {
 			throw new DuplicateRecordException("student already exist");
 		}
-		
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement(
-					"insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pstmt = conn
+					.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, nextPK());
 			pstmt.setLong(2, bean.getCollegeid());
@@ -47,7 +47,6 @@ public class StudentModel extends BaseModel<StudentBean> {
 			pstmt.setString(10, bean.getModifiedBy());
 			pstmt.setTimestamp(11, bean.getCreatedDatetime());
 			pstmt.setTimestamp(12, bean.getModifiedDatetime());
-
 
 			pstmt.executeUpdate();
 
@@ -66,9 +65,6 @@ public class StudentModel extends BaseModel<StudentBean> {
 		return bean.getCollegeid();
 	}
 
-
-	
-	
 	public StudentBean findByEmail(String email) {
 
 		StudentBean bean = findByUniqueColumn("email", email);
@@ -76,13 +72,52 @@ public class StudentModel extends BaseModel<StudentBean> {
 		return bean;
 
 	}
-	
+
 	
 	@Override
 	public String getWhereClause(StudentBean bean) {
 
-		return null;
+	    StringBuffer sql = new StringBuffer(" ");
+
+	    if (bean != null) {
+
+	        if (bean.getId() > 0) {
+	            sql.append(" and id = " + bean.getId());
+	        }
+
+	        if (bean.getCollegeid() > 0) {
+	            sql.append(" and college_id = " + bean.getCollegeid());
+	        }
+
+	        if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
+	            sql.append(" and college_name like '" + bean.getCollegeName() + "'");
+	        }
+
+	        if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
+	            sql.append(" and first_name like '" + bean.getFirstName() + "'");
+	        }
+
+	        if (bean.getLastName() != null && bean.getLastName().length() > 0) {
+	            sql.append(" and last_name like '" + bean.getLastName() + "'");
+	        }
+
+	        if (bean.getDob() != null && bean.getDob().getTime() > 0) {
+	            sql.append(" and date_of_birth = '" 
+	                    + new java.sql.Date(bean.getDob().getTime()) + "'");
+	        }
+
+	        if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
+	            sql.append(" and mobile_no like '" + bean.getMobileNo() + "'");
+	        }
+
+	        if (bean.getEmail() != null && bean.getEmail().length() > 0) {
+	            sql.append(" and email like '" + bean.getEmail() + "'");
+	        }
+	    }
+
+	    return sql.toString();
 	}
+
 
 	@Override
 	public String getTable() {
@@ -96,14 +131,11 @@ public class StudentModel extends BaseModel<StudentBean> {
 		return new StudentBean();
 	}
 
-
-
-
 	@Override
 	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
-		
+
 		Connection conn = null;
-		
+
 		StudentBean existBean = findByEmail(bean.getEmail());
 
 		if (existBean != null && existBean.getId() != bean.getId()) {
@@ -141,7 +173,4 @@ public class StudentModel extends BaseModel<StudentBean> {
 		}
 	}
 
-
-
-	
 }

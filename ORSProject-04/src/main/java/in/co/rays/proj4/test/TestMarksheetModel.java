@@ -25,7 +25,7 @@ public class TestMarksheetModel {
 		MarksheetModel model = new MarksheetModel();
 		MarksheetBean bean = new MarksheetBean();
 		
-		bean.setName("Shivani");
+		bean.setRollNo("0524795");
 		
 		List<MarksheetBean> list = model.search(bean, 1, 5);
 

@@ -4,7 +4,10 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
+import in.co.rays.proj4.bean.FacultyBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.model.MarksheetModel;
 import in.co.rays.proj4.model.StudentModel;
@@ -15,8 +18,38 @@ public static void main(String[] args) throws Exception {
 	//testDelete();
 	//testUpdate();
 	//testFindByPk();
-	 testFindByEmail();
+	 //testFindByEmail();
+	 testSearch();
 	 
+}
+
+
+private static void testSearch() {
+	StudentModel model= new StudentModel();
+	StudentBean bean= new StudentBean();
+	
+	bean.setCollegeName("IPS Academy");
+	
+	List<StudentBean> list = model.search(bean, 1, 5);
+
+	Iterator<StudentBean> it = list.iterator();
+	while (it.hasNext()) {
+		bean = it.next();
+		
+		System.out.println(bean.getId());
+		System.out.println(bean.getCollegeid());
+		System.out.println(bean.getCollegeName());
+		System.out.println(bean.getFirstName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getEmail());
+		System.out.println(bean.getMobileNo());
+		System.out.println(bean.getDob());
+
+		System.out.println(bean.getDob());
+	}
+	
+	// TODO Auto-generated method stub
+	
 }
 
 

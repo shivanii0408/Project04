@@ -2,7 +2,10 @@ package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.model.StudentModel;
 import in.co.rays.proj4.model.SubjectModel;
@@ -14,7 +17,27 @@ public class TestSubjectModel {
 		//testUpdate();
 		//testDelete();
 		//testFindByPk();
-		 testFindByName();
+		 //testFindByName();
+		 testSearch();
+	}
+
+	private static void testSearch() {
+		// TODO Auto-generated method stub
+		SubjectModel model = new SubjectModel();
+		SubjectBean bean = new SubjectBean();
+		
+	bean.setName("Maths");
+		
+		List<SubjectBean> list = model.search(bean, 1, 5);
+
+		Iterator<SubjectBean> it = list.iterator();
+		while (it.hasNext()) {
+			bean = it.next();
+			System.out.println(bean.getId());	
+			System.out.println(bean.getName());
+			System.out.println(bean.getCourseId());
+			System.out.println(bean.getDescription());
+		}
 	}
 
 	private static void testAdd() {

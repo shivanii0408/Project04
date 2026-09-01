@@ -16,14 +16,12 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 		Connection conn = null;
 
 		int pk = 0;
-		
+
 		MarksheetBean existBean = findByRollNo(bean.getRollNo());
 
 		if (existBean != null) {
 			throw new DuplicateRecordException("marksheet already exist");
 		}
-
-		
 
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -62,7 +60,7 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
-		
+
 		MarksheetBean existBean = findByRollNo(bean.getRollNo());
 
 		if (existBean != null && existBean.getId() != bean.getId()) {
@@ -117,17 +115,15 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 		}
 	}
 
-	
 	public MarksheetBean findByRollNo(String rollNo) {
 		// TODO Auto-generated method stub
-		
+
 		MarksheetBean bean = findByUniqueColumn("roll_no", rollNo);
 
 		return bean;
 
-		
 	}
-	
+
 	@Override
 	public String getTable() {
 		return "st_marksheet";
@@ -140,45 +136,40 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 
 	@Override
 	public String getWhereClause(MarksheetBean bean) {
-		
+
 		StringBuffer sql = new StringBuffer(" ");
 
-	    if (bean != null) {
+		if (bean != null) {
 
-	        if (bean.getId() > 0) {
-	            sql.append(" and id = " + bean.getId());
-	        }
-	        
-	        if (bean.getRollNo() != null && bean.getRollNo().length() > 0) {
-	            sql.append(" and rollno like '" + bean.getRollNo() + "'");
-	        }
-	        
-	        if (bean.getStudentId() > 0) {
-	            sql.append(" and studentid = " + bean.getStudentId());
-	        }
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
+			}
 
-	        if (bean.getName() != null && bean.getName().length() > 0) {
-	            sql.append(" and name like '" + bean.getName() + "'");
-	        }
-	        
-	        if (bean.getPhysics() > 0) {
-	            sql.append(" and id = " + bean.getPhysics());
-	        }
-	        
-	        if (bean.getChemistry() > 0) {
-	            sql.append(" and id = " + bean.getChemistry());
-	        }
-	        
-	        
-	        if (bean.getMaths() > 0) {
-	            sql.append(" and id = " + bean.getMaths());
-	        }
-	        
-	    }
+			if (bean.getRollNo() != null && bean.getRollNo().length() > 0) {
+				sql.append(" and roll_no like '" + bean.getRollNo() + "'");
+			}
 
-	    return sql.toString();
+			if (bean.getStudentId() != null && bean.getStudentId() > 0) {
+				sql.append(" and student_id = " + bean.getStudentId());
+			}
+
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and name like '" + bean.getName() + "'");
+			}
+
+			if (bean.getPhysics() > 0) {
+				sql.append(" and physics = " + bean.getPhysics());
+			}
+
+			if (bean.getChemistry() > 0) {
+				sql.append(" and chemistry = " + bean.getChemistry());
+			}
+
+			if (bean.getMaths() > 0) {
+				sql.append(" and maths = " + bean.getMaths());
+			}
+		}
+
+		return sql.toString();
 	}
-
-	
-
 }
