@@ -60,12 +60,12 @@ private static void testAdd() throws ParseException {
 	bean.setDob(sdf.parse("04-08-2004"));
 	bean.setMobileNo("974983448");
 	bean.setRoleId(23);
-	bean.setUnsuccessful_login(2);
+	bean.setUnSuccessfulLogin(2);
 	bean.setGender("female");
-	bean.setLast_login(sdf.parse("04-08-2026"));
-	bean.setUserLock("1234");
-	bean.setRegisteredIp("0920903");
-	bean.setLastLoginIp("0990909");
+//	bean.setLastLogin(sdf.parse("04-08-2026"));
+//	bean.setUserLock("1234");
+//	bean.setRegisteredIp("0920903");
+//	bean.setLastLoginIp("0990909");
 
 	 model.add(bean);	
 }
@@ -84,12 +84,12 @@ private static void testUpdate() throws ParseException {
 	bean.setDob(sdf.parse("04-08-2004"));
 	bean.setMobileNo("974983448");
 	bean.setRoleId(23);
-	bean.setUnsuccessful_login(2);
+	bean.setUnSuccessfulLogin(2);
 	bean.setGender("female");
-	bean.setLast_login(sdf.parse("04-08-2026"));
-	bean.setUserLock("1234");
-	bean.setRegisteredIp("0920903");
-	bean.setLastLoginIp("0990909");
+//	bean.setLastLogin(sdf.parse("04-08-2026"));
+//	bean.setUserLock("1234");
+//	bean.setRegisteredIp("0920903");
+//	bean.setLastLoginIp("0990909");
 
 	 model.update(bean);	
 	
@@ -120,19 +120,19 @@ public static void testFindByPk() {
 	System.out.println(bean.getLogin());
 	System.out.println(bean.getPassword()); // updated
 	System.out.println(bean.getDob());
-	System.out.println(bean.getMobileNo());
-	System.out.println(bean.getRoleId());
-	System.out.println(bean.getUnsuccessful_login());
-	System.out.println(bean.getGender());
-	System.out.println(bean.getLast_login());
-	System.out.println(bean.getUserLock());
-	System.out.println(bean.getRegisteredIp());
-	System.out.println(bean.getLastLoginIp());
-	System.out.println(bean.getCreatedBy());
-	System.out.println(bean.getModifiedBy());
-	System.out.println(bean.getCreatedDatetime());
-	System.out.println(bean.getModifiedDatetime());
-
+//	System.out.println(bean.getMobileNo());
+//	System.out.println(bean.getRoleId());
+//	System.out.println(bean.getUnsuccessful_login());
+//	System.out.println(bean.getGender());
+//	System.out.println(bean.getLast_login());
+//	System.out.println(bean.getUserLock());
+//	System.out.println(bean.getRegisteredIp());
+//	System.out.println(bean.getLastLoginIp());
+//	System.out.println(bean.getCreatedBy());
+//	System.out.println(bean.getModifiedBy());
+//	System.out.println(bean.getCreatedDatetime());
+//	System.out.println(bean.getModifiedDatetime());
+//
 }
 
 private static void testLogin() {
@@ -150,13 +150,13 @@ private static void testLogin() {
 		System.out.println(bean.getPassword()); // updated
 		System.out.println(bean.getDob());
 		System.out.println(bean.getMobileNo());
-		System.out.println(bean.getRoleId());
-		System.out.println(bean.getUnsuccessful_login());
-		System.out.println(bean.getGender());
-		System.out.println(bean.getLast_login());
-		System.out.println(bean.getUserLock());
-		System.out.println(bean.getRegisteredIp());
-		System.out.println(bean.getLastLoginIp());
+//		System.out.println(bean.getRoleId());
+//		System.out.println(bean.getUnsuccessful_login());
+//		System.out.println(bean.getGender());
+//		System.out.println(bean.getLast_login());
+//		System.out.println(bean.getUserLock());
+//		System.out.println(bean.getRegisteredIp());
+//		System.out.println(bean.getLastLoginIp());
 		System.out.println(bean.getCreatedBy());
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());

@@ -7,21 +7,24 @@ import java.util.Date;
 
 public class UserBean extends BaseBean {
 
+	public static final String ACTIVE = "Active";
+	public static final String INACTIVE = "Inactive";
+
 	private String firstName;
 	private String lastName;
 	private String login;
 	private String password;
+	private String confirmPassword;
 	private Date dob;
-	private String MobileNo;
+	private String mobileNo;
 	private long roleId;
-	private int unsuccessful_login;
+	private int unSuccessfulLogin;
 	private String gender;
-	protected Date last_login;
-	private String userLock;
-	private String registeredIp;
-	private String lastLoginIp;
-	
-	
+	private Timestamp lastLogin;
+	private String lock = INACTIVE;
+	private String registeredIP;
+	private String lastLoginIP;
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -54,6 +57,14 @@ public class UserBean extends BaseBean {
 		this.password = password;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	public Date getDob() {
 		return dob;
 	}
@@ -63,11 +74,11 @@ public class UserBean extends BaseBean {
 	}
 
 	public String getMobileNo() {
-		return MobileNo;
+		return mobileNo;
 	}
 
 	public void setMobileNo(String mobileNo) {
-		MobileNo = mobileNo;
+		this.mobileNo = mobileNo;
 	}
 
 	public long getRoleId() {
@@ -78,12 +89,12 @@ public class UserBean extends BaseBean {
 		this.roleId = roleId;
 	}
 
-	public int getUnsuccessful_login() {
-		return unsuccessful_login;
+	public int getUnSuccessfulLogin() {
+		return unSuccessfulLogin;
 	}
 
-	public void setUnsuccessful_login(int unsuccessful_login) {
-		this.unsuccessful_login = unsuccessful_login;
+	public void setUnSuccessfulLogin(int unSuccessfulLogin) {
+		this.unSuccessfulLogin = unSuccessfulLogin;
 	}
 
 	public String getGender() {
@@ -94,45 +105,43 @@ public class UserBean extends BaseBean {
 		this.gender = gender;
 	}
 
-	public Date getLast_login() {
-		return last_login;
+	public Timestamp getLastLogin() {
+		return lastLogin;
 	}
 
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
-	public String getUserLock() {
-		return userLock;
+	public String getLock() {
+		return lock;
 	}
 
-	public void setUserLock(String userLock) {
-		this.userLock = userLock;
+	public void setLock(String lock) {
+		this.lock = lock;
 	}
 
-	public String getRegisteredIp() {
-		return registeredIp;
+	public String getRegisteredIP() {
+		return registeredIP;
 	}
 
-	public void setRegisteredIp(String registeredIp) {
-		this.registeredIp = registeredIp;
+	public void setRegisteredIP(String registeredIP) {
+		this.registeredIP = registeredIP;
 	}
 
-	public String getLastLoginIp() {
-		return lastLoginIp;
+	public String getLastLoginIP() {
+		return lastLoginIP;
 	}
 
-	public void setLastLoginIp(String lastLoginIp) {
-		this.lastLoginIp = lastLoginIp;
+	public void setLastLoginIP(String lastLoginIP) {
+		this.lastLoginIP = lastLoginIP;
 	}
-	
+
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
 	@Override
 	public void setResultset(ResultSet rs) {
 		try {
@@ -144,15 +153,15 @@ public class UserBean extends BaseBean {
 			this.setDob(rs.getDate(6));
 			this.setMobileNo(rs.getString(7));
 			this.setRoleId(rs.getLong(8));
-			this.setUnsuccessful_login(rs.getInt(9));
+			this.setUnSuccessfulLogin(rs.getInt(9));
 			this.setGender(rs.getString(10));
-			this.setLast_login(rs.getTimestamp(11));
-			this.setUserLock(rs.getString(12));
-			this.setRegisteredIp(rs.getString(13));
-			this.setLastLoginIp(rs.getString(14));
+			this.setLastLogin(rs.getTimestamp(11));
+			this.setLock(rs.getString(12));
+			this.setRegisteredIP(rs.getString(13));
+			this.setLastLoginIP(rs.getString(14));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
