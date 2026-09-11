@@ -44,7 +44,7 @@ public void setPhoneNo(String phoneNo) {
 @Override
 public String getValue() {
 	// TODO Auto-generated method stub
-	return null;
+	return name;
 }
 
 @Override

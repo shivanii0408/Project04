@@ -37,7 +37,7 @@ private static void testSearch() {
 		bean = it.next();
 		
 		System.out.println(bean.getId());
-		System.out.println(bean.getCollegeid());
+		System.out.println(bean.getCollegeId());
 		System.out.println(bean.getCollegeName());
 		System.out.println(bean.getFirstName());
 		System.out.println(bean.getLastName());
@@ -60,7 +60,7 @@ private static void testAdd() throws ParseException {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
 
-	bean.setCollegeid(102);
+	bean.setCollegeId(102);
 	bean.setCollegeName("IPS Academy");
 	bean.setFirstName("Priya");
 	bean.setLastName("Sharma");
@@ -81,7 +81,7 @@ private static void testUpdate() throws ParseException {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	bean.setId(2);
-	bean.setCollegeid(2);
+	bean.setCollegeId(2);
 	bean.setCollegeName("Medicaps University");
 	bean.setFirstName("Shivani");
 	bean.setLastName("Verma");
@@ -113,7 +113,7 @@ public static void testFindByPk() {
 	bean = model.findByPK(2);
 
 	System.out.println(bean.getId());
-	System.out.println(bean.getCollegeid());
+	System.out.println(bean.getCollegeId());
 	System.out.println(bean.getCollegeName());
 	System.out.println(bean.getFirstName());
 	System.out.println(bean.getLastName());
@@ -132,7 +132,7 @@ public static void testFindByEmail() {
 	bean = model.findByEmail("gehlotshivani@gmail.com");
 
 	System.out.println(bean.getId());
-	System.out.println(bean.getCollegeid());
+	System.out.println(bean.getCollegeId());
 	System.out.println(bean.getCollegeName());
 	System.out.println(bean.getFirstName());
 	System.out.println(bean.getLastName());

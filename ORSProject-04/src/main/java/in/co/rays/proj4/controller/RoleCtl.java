@@ -31,6 +31,7 @@ public class RoleCtl extends BaseCtl<RoleBean, RoleModel> {
 
 		RoleBean bean = new RoleBean();
 
+		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setName(DataUtility.getString(request.getParameter("name")));
 		bean.setDescription(DataUtility.getString(request.getParameter("description")));
 

@@ -32,7 +32,9 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			PreparedStatement pstmt = conn.prepareStatement(
 					"insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?)");
 
-			pstmt.setInt(1, nextPK());
+			long pk = nextPK();
+
+			pstmt.setLong(1, pk);
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getAddress());
 			pstmt.setString(4, bean.getState());
@@ -58,7 +60,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			JDBCDataSource.closeConnection(conn);
 		}
 
-		return 0;
+		return pk;
 	}
 
 

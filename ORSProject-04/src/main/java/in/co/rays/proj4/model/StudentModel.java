@@ -34,7 +34,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 					.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, nextPK());
-			pstmt.setLong(2, bean.getCollegeid());
+			pstmt.setLong(2, bean.getCollegeId());
 			pstmt.setString(3, bean.getCollegeName());
 			pstmt.setString(4, bean.getFirstName());
 			pstmt.setString(5, bean.getLastName());
@@ -62,7 +62,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 			JDBCDataSource.closeConnection(conn);
 		}
 
-		return bean.getCollegeid();
+		return bean.getCollegeId();
 	}
 
 	public StudentBean findByEmail(String email) {
@@ -85,8 +85,8 @@ public class StudentModel extends BaseModel<StudentBean> {
 	            sql.append(" and id = " + bean.getId());
 	        }
 
-	        if (bean.getCollegeid() > 0) {
-	            sql.append(" and college_id = " + bean.getCollegeid());
+	        if (bean.getCollegeId() > 0) {
+	            sql.append(" and college_id = " + bean.getCollegeId());
 	        }
 
 	        if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
@@ -149,7 +149,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()
 					+ " set college_id = ?,college_name = ?,first_name = ?, last_name = ?, date_of_birth = ?,  mobile_no = ?,email = ?,modified_By = ?,modified_DateTime = ? where id = ?");
 
-			pstmt.setLong(1, bean.getCollegeid());
+			pstmt.setLong(1, bean.getCollegeId());
 			pstmt.setString(2, bean.getCollegeName());
 			pstmt.setString(3, bean.getFirstName());
 			pstmt.setString(4, bean.getLastName());

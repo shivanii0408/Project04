@@ -56,6 +56,7 @@
 					<th>Login</th>
 					<th>DOB</th>
 					<th>RoleName</th>
+					<th>Edit</th>
 				</tr>
 
 				<%
@@ -73,6 +74,7 @@
 					<td><%=bean.getLogin()%></td>
 					<td><%=bean.getDob()%></td>
 					<td><%=rbean.getName()%></td>
+					<td><a href="<%=ORSView.USER_CTL + "?id=" + bean.getId()%>">Edit</a></td>
 				</tr>
 				<%
 				}

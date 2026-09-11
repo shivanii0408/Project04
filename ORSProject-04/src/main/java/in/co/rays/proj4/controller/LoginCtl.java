@@ -32,7 +32,7 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 		if (DataValidator.isNull(request.getParameter("password"))) {
 			pass = false;
 			request.setAttribute("password", "password is required");
-		}
+		} 
 
 		return pass;
 	}

@@ -10,12 +10,10 @@ public abstract class BaseBean implements DropdownListBean {
 	protected long id;
 
 	protected String createdBy;
-
 	
 	protected String modifiedBy;
 
 	protected Timestamp createdDatetime;
-
 	
 	protected Timestamp modifiedDatetime;
 
@@ -73,7 +71,7 @@ public abstract class BaseBean implements DropdownListBean {
 
 	@Override
 	public String getKey() {
-		return null;
+		return id+"";
 	}
 
 }

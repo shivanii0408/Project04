@@ -1,5 +1,7 @@
 package in.co.rays.proj4.controller;
 
+import java.util.List;
+
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.model.RoleModel;
@@ -12,7 +14,15 @@ import jakarta.servlet.http.HttpServletRequest;
 @WebServlet("/UserCtl")
 public class UserCtl extends BaseCtl<UserBean, UserModel> {
 	
-	
+	@Override
+	//Dynamic Preload 
+	protected void preload(HttpServletRequest request) {
+		RoleModel rmodel = new RoleModel();
+		List<RoleBean> roleList = rmodel.list();
+		request.setAttribute("roleList", roleList); //key,value
+
+		super.preload(request);
+	}
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
@@ -69,6 +79,7 @@ public class UserCtl extends BaseCtl<UserBean, UserModel> {
 		UserBean bean = new UserBean();
 
 		bean.setRoleId(RoleBean.STUDENT);
+		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
 		bean.setLogin(DataUtility.getString(request.getParameter("login")));

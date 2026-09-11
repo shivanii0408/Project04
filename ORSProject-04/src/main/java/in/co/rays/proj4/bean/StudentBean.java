@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class StudentBean extends BaseBean {
 
-	private long collegeid;
+	private long collegeId;
 	private String collegeName;
 	private String firstName;
 	private String lastName;
@@ -14,13 +14,14 @@ public class StudentBean extends BaseBean {
 	private String MobileNo;
 	private String email;
 	
+
+	public long getCollegeId() {
+	    return collegeId;
+	}
+	public void setCollegeId(long collegeId) {
+	    this.collegeId = collegeId;
+	}
 	
-	public Long getCollegeid() {
-		return collegeid;
-	}
-	public void setCollegeid(long collegeid) {
-		this.collegeid = collegeid;
-	}
 	public String getCollegeName() {
 		return collegeName;
 	}
@@ -68,7 +69,7 @@ public class StudentBean extends BaseBean {
 	public void setResultset(ResultSet rs) {
 		try {
 			super.setResultset(rs);
-			this.setCollegeid(rs.getLong(2));
+			this.setCollegeId(rs.getLong(2));
 			this.setCollegeName(rs.getString(3));
 			this.setFirstName(rs.getString(4));
 			this.setLastName(rs.getString(5));
