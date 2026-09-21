@@ -8,6 +8,7 @@ import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.BaseModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
+import in.co.rays.proj4.util.MessageSource;
 import in.co.rays.proj4.util.ServletUtility;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -76,49 +77,54 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
+			throws ServletException, IOException {
 
-	    String op = DataUtility.getString(request.getParameter("operation"));
+		String op = DataUtility.getString(request.getParameter("operation"));
 
-	    long id = DataUtility.getLong(request.getParameter("id"));
+		long id = DataUtility.getLong(request.getParameter("id"));
 
-	    if (id > 0 || op != null) {
-	        BaseBean bean = getModel().findByPK(id);
-	        ServletUtility.setBean(bean, request);
-	    }
+		if (id > 0 || op != null) {
+			BaseBean bean = getModel().findByPK(id);
+			ServletUtility.setBean(bean, request);
+		}
 
-	    preload(request);   // ADD THIS LINE
+		preload(request); // ADD THIS LINE
 
-	    ServletUtility.forward(getView(), request, response);
+		ServletUtility.forward(getView(), request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
+			throws ServletException, IOException {
 
-	    long id = DataUtility.getLong(request.getParameter("id"));
+		long id = DataUtility.getLong(request.getParameter("id"));
 
-	    B bean = populateBean(request);
-	    M model = getModel();
+		B bean = populateBean(request);
+		M model = getModel();
 
-	    if (id > 0) {
-	        model.update(bean);
-	        ServletUtility.setSuccessMessage("Data is successfully updated", request);
-	    } else {
-	        model.add(bean);
-	        ServletUtility.setSuccessMessage("Data is successfully saved", request);
-	    }
+		if (id > 0) {
+			model.update(bean);
+			ServletUtility.setSuccessMessage("Data is successfully updated", request);
+		} else {
+			model.add(bean);
+			ServletUtility.setSuccessMessage("Data is successfully saved", request);
+		}
 
-	    preload(request);   // ADD THIS LINE
+		preload(request); // ADD THIS LINE
 
-	    ServletUtility.forward(getView(), request, response);
+		ServletUtility.forward(getView(), request, response);
 	}
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		getMessageSource(request);
+
+		preload(request);
+
 		if ("POST".equals(request.getMethod())) {
 			if (validate(request) == false) {
+
 				ServletUtility.forward(getView(), request, response);
 				return;
 			}
@@ -136,5 +142,11 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 	protected abstract String getView();
 
 	protected abstract M getModel();
+
+	public MessageSource getMessageSource(HttpServletRequest request) {
+
+		MessageSource messagesource = MessageSource.getInstance();
+		return messagesource;
+	}
 
 }

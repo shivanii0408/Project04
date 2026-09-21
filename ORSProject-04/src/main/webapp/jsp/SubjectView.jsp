@@ -9,14 +9,85 @@
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
 
 <!DOCTYPE html>
-
 <html>
-
 <head>
 
-<meta charset="ISO-8859-1">
-
+<meta charset="UTF-8">
 <title>Subject</title>
+
+<!-- Bootstrap CSS -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet">
+
+<style>
+
+body {
+    background-color: #f8f9fa;
+}
+
+.form-container {
+    max-width: 650px;
+    margin: 40px auto 100px auto;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    background-color: white;
+}
+
+.card-header {
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    text-align: center;
+    padding: 18px;
+}
+
+.card-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #212529;
+}
+
+.required {
+    color: red;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 7px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
+}
+
+.field-icon {
+    color: #0d6efd;
+    margin-right: 6px;
+}
+
+</style>
 
 </head>
 
@@ -25,159 +96,193 @@
 <%@ include file="Header.jsp"%>
 
 <%
-    String _suc = ServletUtility.getSuccessMessage(request);
-    String _err = ServletUtility.getErrorMessage(request);
+String _suc = ServletUtility.getSuccessMessage(request);
+String _err = ServletUtility.getErrorMessage(request);
 
-    List<CourseBean> courseList =
-            (List<CourseBean>) request.getAttribute("courseList");
+List<CourseBean> courseList =
+        (List<CourseBean>) request.getAttribute("courseList");
 %>
 
-
 <!-- Subject Bean -->
-
-<jsp:useBean id="bean" class="in.co.rays.proj4.bean.SubjectBean"
-    scope="request"></jsp:useBean>
-
-
-<form action="<%=ORSView.SUBJECT_CTL%>" method="post">
-
-    <!-- Hidden ID -->
-
-    <input type="hidden" name="id"
-        value="<%=DataUtility.getStringData(bean.getId())%>">
+<jsp:useBean id="bean"
+    class="in.co.rays.proj4.bean.SubjectBean"
+    scope="request">
+</jsp:useBean>
 
 
-    <div align="center">
+<div class="container form-container">
 
-        <!-- Heading -->
+    <div class="card">
 
-        <h1>
-            <%=bean != null && bean.getId() > 0
-                    ? "Update Subject"
-                    : "Add Subject"%>
-        </h1>
+        <!-- Header -->
+        <div class="card-header">
 
+            <h2 class="mb-0">
 
-        <!-- Success Message -->
+                <i class="bi bi-journal-bookmark-fill me-2"></i>
 
-        <h3 style="color: green">
-            <%=_suc%>
-        </h3>
+                <%=bean != null && bean.getId() > 0
+                        ? "Update Subject"
+                        : "Add Subject"%>
 
+            </h2>
 
-        <!-- Error Message -->
-
-        <h3 style="color: red">
-            <%=_err%>
-        </h3>
+        </div>
 
 
-        <table>
+        <div class="card-body p-4">
+
+            <!-- Success Message -->
+            <%
+            if (_suc != null && !_suc.isEmpty()) {
+            %>
+
+            <div class="alert alert-success text-center">
+
+                <i class="bi bi-check-circle-fill me-2"></i>
+
+                <%=_suc%>
+
+            </div>
+
+            <%
+            }
+            %>
 
 
-            <!-- Name -->
+            <!-- Error Message -->
+            <%
+            if (_err != null && !_err.isEmpty()) {
+            %>
 
-            <tr>
+            <div class="alert alert-danger text-center">
 
-                <th>
-                    Name
-                    <font color="red">*</font>
-                </th>
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
 
-                <td>
+                <%=_err%>
+
+            </div>
+
+            <%
+            }
+            %>
+
+
+            <form action="<%=ORSView.SUBJECT_CTL%>" method="post">
+
+                <!-- Hidden ID -->
+                <input type="hidden"
+                    name="id"
+                    value="<%=DataUtility.getStringData(bean.getId())%>">
+
+
+                <!-- Name -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        <i class="bi bi-book field-icon"></i>
+
+                        Name
+                        <span class="required">*</span>
+
+                    </label>
 
                     <input type="text"
-                           name="name"
-                           value="<%=DataUtility.getStringData(bean.getName())%>"
-                           placeholder="enter subject name">
+                        class="form-control"
+                        name="name"
+                        value="<%=DataUtility.getStringData(bean.getName())%>"
+                        placeholder="Enter subject name">
 
-                </td>
+                    <div class="error">
+                        <%=ServletUtility.getErrorMessage("name", request)%>
+                    </div>
 
-                <td style="color: red">
-                    <%=ServletUtility.getErrorMessage("name", request)%>
-                </td>
-
-            </tr>
+                </div>
 
 
-            <!-- Description -->
+                <!-- Description -->
+                <div class="mb-3">
 
-            <tr>
+                    <label class="form-label">
 
-                <th>
-                    Description
-                    <font color="red">*</font>
-                </th>
+                        <i class="bi bi-card-text field-icon"></i>
 
-                <td>
+                        Description
+                        <span class="required">*</span>
+
+                    </label>
 
                     <input type="text"
-                           name="description"
-                           value="<%=DataUtility.getStringData(bean.getDescription())%>"
-                           placeholder="enter description">
+                        class="form-control"
+                        name="description"
+                        value="<%=DataUtility.getStringData(bean.getDescription())%>"
+                        placeholder="Enter description">
 
-                </td>
+                    <div class="error">
+                        <%=ServletUtility.getErrorMessage("description", request)%>
+                    </div>
 
-                <td style="color: red">
-                    <%=ServletUtility.getErrorMessage("description", request)%>
-                </td>
-
-            </tr>
+                </div>
 
 
-            <!-- Course -->
+                <!-- Course -->
+                <div class="mb-4">
 
-            <tr>
+                    <label class="form-label">
 
-                <th>
-                    Course
-                    <font color="red">*</font>
-                </th>
+                        <i class="bi bi-mortarboard-fill field-icon"></i>
 
-                <td>
+                        Course
+                        <span class="required">*</span>
+
+                    </label>
 
                     <%=HTMLUtility.getList(
                             "courseId",
                             DataUtility.getStringData(bean.getCourseId()),
                             courseList)%>
 
-                </td>
+                    <div class="error">
+                        <%=ServletUtility.getErrorMessage("courseId", request)%>
+                    </div>
 
-                <td style="color: red">
-                    <%=ServletUtility.getErrorMessage("courseId", request)%>
-                </td>
-
-            </tr>
+                </div>
 
 
-            <!-- Submit -->
+                <!-- Submit Button -->
+                <div class="text-center">
 
-            <tr>
+                    <button type="submit"
+                        name="operation"
+                        value="<%=bean != null && bean.getId() > 0
+                                ? "Update"
+                                : BaseCtl.OP_SAVE%>"
+                        class="btn btn-primary px-5">
 
-                <th></th>
+                        <i class="bi bi-check-circle me-2"></i>
 
-                <td>
+                        <%=bean != null && bean.getId() > 0
+                                ? "Update"
+                                : "Save"%>
 
-                    <input type="submit"
-                           name="operation"
-                           value="<%=bean != null && bean.getId() > 0
-                                   ? "Update"
-                                   : BaseCtl.OP_SAVE%>">
+                    </button>
 
-                </td>
+                </div>
 
-            </tr>
+            </form>
 
-
-        </table>
+        </div>
 
     </div>
 
-</form>
+</div>
 
 
 <%@ include file="Footer.jsp"%>
 
-</body>
 
+
+
+</body>
 </html>

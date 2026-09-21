@@ -1,163 +1,529 @@
 <%@ page import="in.co.rays.proj4.bean.FacultyBean"%>
-
 <%@ page import="in.co.rays.proj4.util.ServletUtility"%>
-
 <%@ page import="in.co.rays.proj4.controller.BaseCtl"%>
-
 <%@ page import="in.co.rays.proj4.controller.ORSView"%>
-
 <%@ page import="java.util.Iterator"%>
-
 <%@ page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<title>Faculty List</title>
+
+<!-- Bootstrap CSS -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet">
+
+
+<style>
+
+body {
+    background-color: #f8f9fa;
+}
+
+.list-container {
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    background-color: white;
+}
+
+.card-header {
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    text-align: center;
+    padding: 18px;
+}
+
+.card-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.search-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.form-control {
+    border-radius: 7px;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #e9f2ff;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.check-box {
+    width: 18px;
+    height: 18px;
+}
+
+.error {
+    color: red;
+}
+
+</style>
+
 </head>
+
+
 <body>
 
-	<%@ include file="Header.jsp"%>
+<%@ include file="Header.jsp"%>
 
-	<%
-	int pageNo = ServletUtility.getPageNo(request);
 
-	int pageSize = ServletUtility.getPageSize(request);
+<%
 
-	int index = ((pageNo - 1) * pageSize) + 1;
+int pageNo = ServletUtility.getPageNo(request);
 
-	List<FacultyBean> list = ServletUtility.getList(request);
+int pageSize = ServletUtility.getPageSize(request);
 
-	Iterator<FacultyBean> it = list.iterator();
+int index = ((pageNo - 1) * pageSize) + 1;
 
-	String _suc = ServletUtility.getSuccessMessage(request);
+List<FacultyBean> list = ServletUtility.getList(request);
 
-	String _err = ServletUtility.getErrorMessage(request);
-	%>
+Iterator<FacultyBean> it = list.iterator();
 
-	<form action="<%=ORSView.STUDENT_LIST_CTL%>" method="post">
+String _suc = ServletUtility.getSuccessMessage(request);
 
-		<div align="center">
+String _err = ServletUtility.getErrorMessage(request);
 
-			<h1>Faculty List</h1>
+%>
 
-			<h3 style="color: green"><%=_suc%></h3>
 
-			<h3 style="color: red"><%=_err%></h3>
+<div class="container-fluid list-container">
 
-			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
-				type="hidden" name="pageSize" value="<%=pageSize%>">
+    <div class="card">
 
-			<table>
+        <!-- Header -->
+        <div class="card-header">
 
-				<tr>
+            <h2 class="mb-0">
 
+                <i class="bi bi-people-fill me-2"></i>
 
-					<td><input type="text" name="firstName" value=""
-						placeholder="search by firstName"></td>
+                Faculty List
 
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SEARCH%>"></td>
+            </h2>
 
-				</tr>
+        </div>
 
-			</table>
+<!-- PDF Button - Top Right -->
 
-			<table border="1px" width="100%">
+				<div class="position-absolute top-0 end-0 mt-2 me-3">
 
-				<tr style="background-color: skyblue">
+					<a href="<%=ORSView.FACULTY_REPORT_CTL%>?type=pdf"
+						class="btn btn-outline-danger btn-sm px-3"> <i
+						class="bi bi-file-earmark-pdf me-1"></i> PDF
 
-					<th><input type="checkbox"
-						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)"></th>
+					</a>
 
-					<th>S.No</th>
+				</div>
 
-					<th>College Name</th>
+        <div class="card-body p-4">
 
-					<th>FirstName</th>
 
-					<th>LastName</th>
+            <!-- Success Message -->
 
-					<th>Email</th>
+            <%
+            if (_suc != null && !_suc.isEmpty()) {
+            %>
 
-					<th>Mobile No</th>
+            <div class="alert alert-success text-center">
 
-					<th>Address</th>
+                <i class="bi bi-check-circle-fill me-2"></i>
 
-					<th>Gender</th>
+                <%= _suc %>
 
-					<th>DOB</th>
+            </div>
 
-					<th>Edit</th>
+            <%
+            }
+            %>
 
 
+            <!-- Error Message -->
 
-				</tr>
+            <%
+            if (_err != null && !_err.isEmpty()) {
+            %>
 
-				<%
-				while (it.hasNext()) {
+            <div class="alert alert-danger text-center">
 
-					FacultyBean bean = it.next();
-				%>
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
 
-				<tr align="center" style="background-color: lightgrey">
+                <%= _err %>
 
-					<td><input type="checkbox" name="ids"
-						value="<%=bean.getId()%>"></td>
+            </div>
 
-					<td><%=index++%></td>
+            <%
+            }
+            %>
 
-					<td><%=bean.getCollegeName()%></td>
 
-					<td><%=bean.getFirstName()%></td>
+            <form action="<%=ORSView.STUDENT_LIST_CTL%>" method="post">
 
-					<td><%=bean.getLastName()%></td>
 
-					<td><%=bean.getEmail()%></td>
+                <!-- Hidden Fields -->
 
-					<td><%=bean.getMobileNo()%></td>
+                <input type="hidden"
+                    name="pageNo"
+                    value="<%=pageNo%>">
 
-					<td><%=bean.getAddress()%></td>
+                <input type="hidden"
+                    name="pageSize"
+                    value="<%=pageSize%>">
 
-					<td><%=bean.getGender()%></td>
 
-					<td><%=bean.getDob()%></td>
+                <!-- Search -->
 
-					<td><a href="<%=ORSView.ROLE_CTL + "?id=" + bean.getId()%>">Edit</a></td>
+                <div class="search-box">
 
+                    <div class="row g-3 align-items-center">
 
+                        <div class="col-md-8">
 
-				</tr>
+                            <div class="input-group">
 
-				<%
-				}
-				%>
+                                <span class="input-group-text bg-white">
 
-			</table>
+                                    <i class="bi bi-search text-primary"></i>
 
-		</div>
+                                </span>
 
-		<table width="100%">
+                                <input type="text"
+                                    class="form-control"
+                                    name="firstName"
+                                    value=""
+                                    placeholder="Search by first name">
 
-			<tr>
+                            </div>
 
-				<td><input type="submit" name="operation"
-					<%=pageNo == 1 ? "disabled" : ""%> value="<%=BaseCtl.OP_PREVIOUS%>"></td>
+                        </div>
 
-				<td align="center"><input type="submit" name="operation"
-					value="<%=BaseCtl.OP_DELETE%>"></td>
 
-				<td align="right"><input type="submit" name="operation"
-					<%=list.size() < 10 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_NEXT%>"></td>
+                        <div class="col-md-4">
 
-			</tr>
+                            <button type="submit"
+                                name="operation"
+                                value="<%=BaseCtl.OP_SEARCH%>"
+                                class="btn btn-primary w-100">
 
-		</table>
+                                <i class="bi bi-search me-2"></i>
 
-	</form>
+                                Search
 
-	<%@ include file="Footer.jsp"%>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Table -->
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+
+                                    <input type="checkbox"
+                                        class="form-check-input check-box"
+                                        onclick="selectAll(this)">
+
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-list-ol me-1"></i>
+                                    S.No
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-building me-1"></i>
+                                    College Name
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-person me-1"></i>
+                                    First Name
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-person me-1"></i>
+                                    Last Name
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-envelope me-1"></i>
+                                    Email
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-phone me-1"></i>
+                                    Mobile No
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    Address
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-gender-ambiguous me-1"></i>
+                                    Gender
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-calendar-event me-1"></i>
+                                    DOB
+                                </th>
+
+                                <th>
+                                    <i class="bi bi-pencil-square me-1"></i>
+                                    Edit
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <%
+
+                        while (it.hasNext()) {
+
+                            FacultyBean bean = it.next();
+
+                        %>
+
+                            <tr>
+
+                                <td>
+
+                                    <input type="checkbox"
+                                        class="form-check-input check-box"
+                                        name="ids"
+                                        value="<%=bean.getId()%>">
+
+                                </td>
+
+
+                                <td>
+                                    <%=index++%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getCollegeName()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getFirstName()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getLastName()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getEmail()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getMobileNo()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getAddress()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getGender()%>
+                                </td>
+
+
+                                <td>
+                                    <%=bean.getDob()%>
+                                </td>
+
+
+                                <td>
+
+                                    <a href="<%=ORSView.ROLE_CTL + "?id=" + bean.getId()%>"
+                                        class="btn btn-sm btn-outline-primary">
+
+                                        <i class="bi bi-pencil-square me-1"></i>
+
+                                        Edit
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        <%
+
+                        }
+
+                        %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- Pagination / Delete -->
+
+                <div class="row mt-4 align-items-center">
+
+
+                    <!-- Previous -->
+
+                    <div class="col-md-4">
+
+                        <button type="submit"
+                            name="operation"
+                            value="<%=BaseCtl.OP_PREVIOUS%>"
+                            class="btn btn-secondary"
+                            <%=pageNo == 1 ? "disabled" : ""%>>
+
+                            <i class="bi bi-chevron-left me-1"></i>
+
+                            Previous
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Delete -->
+
+                    <div class="col-md-4 text-center">
+
+                        <button type="submit"
+                            name="operation"
+                            value="<%=BaseCtl.OP_DELETE%>"
+                            class="btn btn-danger">
+
+                            <i class="bi bi-trash3 me-1"></i>
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Next -->
+
+                    <div class="col-md-4 text-end">
+
+                        <button type="submit"
+                            name="operation"
+                            value="<%=BaseCtl.OP_NEXT%>"
+                            class="btn btn-secondary"
+                            <%=list.size() < 10 ? "disabled" : ""%>>
+
+                            Next
+
+                            <i class="bi bi-chevron-right ms-1"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<%@ include file="Footer.jsp"%>
+
+
+
+
+<!-- Select All -->
+
+<script>
+
+function selectAll(source) {
+
+    let checkboxes =
+        document.querySelectorAll('input[name="ids"]');
+
+    checkboxes.forEach(function(checkbox) {
+
+        checkbox.checked = source.checked;
+
+    });
+
+}
+
+</script>
+
 
 </body>
+
 </html>

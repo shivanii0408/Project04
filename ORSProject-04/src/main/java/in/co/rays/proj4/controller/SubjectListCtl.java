@@ -6,7 +6,7 @@ import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.model.SubjectModel;
 import in.co.rays.proj4.util.DataUtility;
 
-@WebServlet("/SubjectListCtl")
+@WebServlet("/ctl/SubjectListCtl")
 public class SubjectListCtl extends BaseListCtl<SubjectBean, SubjectModel> {
 
 	@Override

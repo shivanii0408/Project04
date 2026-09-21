@@ -14,7 +14,7 @@ import in.co.rays.proj4.model.RoleModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 
-@WebServlet("/CollegeCtl")
+@WebServlet("/ctl/CollegeCtl")
 public class CollegeCtl extends BaseCtl<CollegeBean, CollegeModel> {
 
 	@Override

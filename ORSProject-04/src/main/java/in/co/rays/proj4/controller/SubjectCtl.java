@@ -12,7 +12,7 @@ import in.co.rays.proj4.model.SubjectModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 
-@WebServlet("/SubjectCtl")
+@WebServlet("/ctl/SubjectCtl")
 public class SubjectCtl extends BaseCtl<SubjectBean, SubjectModel> {
 
 	@Override

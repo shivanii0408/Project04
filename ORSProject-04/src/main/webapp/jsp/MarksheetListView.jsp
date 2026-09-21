@@ -5,97 +5,494 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java"
+	contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<title>Marksheet List</title>
+
+<!-- Bootstrap CSS -->
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+	rel="stylesheet">
+
+
+<style>
+
+body {
+	background-color: #f8f9fa;
+}
+
+.list-container {
+	margin-top: 35px;
+	margin-bottom: 100px;
+}
+
+.card {
+	border: 1px solid #dee2e6;
+	border-radius: 12px;
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+	background-color: #0d6efd;
+	color: white;
+	border-radius: 12px 12px 0 0 !important;
+	text-align: center;
+	padding: 18px;
+}
+
+.card-header h2 {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.search-box {
+	background-color: #f8f9fa;
+	padding: 18px;
+	border-radius: 8px;
+	border: 1px solid #dee2e6;
+	margin-bottom: 20px;
+}
+
+.table th {
+	background-color: #e9f2ff;
+	color: #212529;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.table td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.check-box {
+	width: 18px;
+	height: 18px;
+}
+
+.edit-btn {
+	color: #0d6efd;
+	border-color: #0d6efd;
+}
+
+.edit-btn:hover {
+	background-color: #0d6efd;
+	color: white;
+}
+
+</style>
+
 </head>
+
+
 <body>
 
+<%@ include file="Header.jsp"%>
+
+
 <%
-	int pageNo = ServletUtility.getPageNo(request);
-	int pageSize = ServletUtility.getPageSize(request);
-	int index = ((pageNo - 1) * pageSize) + 1;
-	List<MarksheetBean> list = ServletUtility.getList(request);
-	Iterator<MarksheetBean> it = list.iterator();
-	String _suc = ServletUtility.getSuccessMessage(request);
-	String _err = ServletUtility.getErrorMessage(request);
-	%>
 
-	<form action="<%=ORSView.MARKSHEET_LIST_CTL%>" method="post">
-		<div align="center">
+int pageNo = ServletUtility.getPageNo(request);
 
-			<h1>MarkSheet List</h1>
+int pageSize = ServletUtility.getPageSize(request);
 
-			<h3 style="color: green"><%=_suc != null ? _suc : ""%></h3>
-			<h3 style="color: red"><%=_err != null ? _err : ""%></h3>
+int index = ((pageNo - 1) * pageSize) + 1;
 
-			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
-				type="hidden" name="pageSize" value="<%=pageSize%>">
+List<MarksheetBean> list = ServletUtility.getList(request);
 
-			<table>
-				<tr>
-				    <td><input type="text" name="rollNo" value=""
-						placeholder="search by roll no"></td>
-					<td><input type="text" name="name" value=""
-						placeholder="search by name"></td>
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SEARCH%>"></td>
-				</tr>
-			</table>
+Iterator<MarksheetBean> it = list.iterator();
 
-			<table border="1px" width="100%">
+String _suc = ServletUtility.getSuccessMessage(request);
 
-				<tr style="background-color: skyblue">
-					<th><input type="checkbox"
-						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)"></th>
-					<th>S.No</th>
-					<th>Roll No</th>
-					<th>Name</th>
-					<th>Physics</th>
-                    <th>Chemistry</th>
-                    <th>Maths</th>
-                     <th>Edit</th>
-                    
-				</tr>
+String _err = ServletUtility.getErrorMessage(request);
 
-				<%
-				while (it.hasNext()) {
-					MarksheetBean bean = it.next();
-				%>
-				<tr align="center" style="background-color: lightgrey">
-					<td><input type="checkbox" name="ids"
-						value="<%=bean.getId()%>"></td>
-					<td><%=index++%></td>
-					<td><%=bean.getRollNo()%></td>
-					<td><%=bean.getName()%></td>
-					<td><%=bean.getPhysics()%></td>
-					<td><%=bean.getChemistry()%></td>
-					<td><%=bean.getMaths()%></td>
-					<td><a href="<%=ORSView.MARKSHEET_CTL + "?id=" + bean.getId()%>">Edit</a></td>
-				</tr>
-				<%
-				}
-				%>
-			</table>
+%>
+
+
+<div class="container-fluid list-container">
+
+	<div class="card">
+
+
+		<!-- Header -->
+
+		<div class="card-header">
+
+			<h2 class="mb-0">
+
+				<i class="bi bi-list-ul me-2"></i>
+
+				Marksheet List
+
+			</h2>
+
 		</div>
 
-		<table width="100%">
-			<tr>
-				<td><input type="submit" name="operation"
-					<%=pageNo == 1 ? "disabled" : ""%> value="<%=BaseCtl.OP_PREVIOUS%>"></td>
-				<td align="center"><input type="submit" name="operation"
-					value="<%=BaseCtl.OP_DELETE%>"></td>
-				<td align="right"><input type="submit" name="operation"
-					<%=list.size() < 10 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_NEXT%>"></td>
-			</tr>
-		</table>
-	</form>
+<!-- PDF Button - Top Right -->
+
+				<div class="position-absolute top-0 end-0 mt-2 me-3">
+
+					<a href="<%=ORSView.MARKSHEET_REPORT_CTL%>?type=pdf"
+						class="btn btn-outline-danger btn-sm px-3"> <i
+						class="bi bi-file-earmark-pdf me-1"></i>Download PDF
+
+					</a>
+					<a href="<%=ORSView.MARKSHEET_REPORT_CTL%>?type=doc"
+						class="btn btn-outline-primary btn-sm px-3"> <i
+						class="bi bi-file-earmark-pdf me-1"></i>Download DOC
+
+					</a>
+					
+
+				</div>
+
+		<div class="card-body p-4">
+
+
+			<!-- Success -->
+
+			<%
+			if (_suc != null && !_suc.isEmpty()) {
+			%>
+
+			<div class="alert alert-success text-center">
+
+				<i class="bi bi-check-circle-fill me-2"></i>
+
+				<%=_suc%>
+
+			</div>
+
+			<%
+			}
+			%>
+
+
+			<!-- Error -->
+
+			<%
+			if (_err != null && !_err.isEmpty()) {
+			%>
+
+			<div class="alert alert-danger text-center">
+
+				<i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+				<%=_err%>
+
+			</div>
+
+			<%
+			}
+			%>
+
+
+			<form action="<%=ORSView.MARKSHEET_LIST_CTL%>"
+				method="post">
+
+
+				<!-- Hidden -->
+
+				<input type="hidden"
+					name="pageNo"
+					value="<%=pageNo%>">
+
+				<input type="hidden"
+					name="pageSize"
+					value="<%=pageSize%>">
+
+
+				<!-- Search -->
+
+				<div class="search-box">
+
+					<div class="row g-3">
+
+						<div class="col-md-4">
+
+							<div class="input-group">
+
+								<span class="input-group-text">
+									<i class="bi bi-person-badge"></i>
+								</span>
+
+								<input type="text"
+									class="form-control"
+									name="rollNo"
+									value=""
+									placeholder="Search by roll no">
+
+							</div>
+
+						</div>
+
+
+						<div class="col-md-4">
+
+							<div class="input-group">
+
+								<span class="input-group-text">
+									<i class="bi bi-person"></i>
+								</span>
+
+								<input type="text"
+									class="form-control"
+									name="name"
+									value=""
+									placeholder="Search by name">
+
+							</div>
+
+						</div>
+
+
+						<div class="col-md-4">
+
+							<button type="submit"
+								name="operation"
+								value="<%=BaseCtl.OP_SEARCH%>"
+								class="btn btn-primary w-100">
+
+								<i class="bi bi-search me-2"></i>
+
+								Search
+
+							</button>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<!-- Table -->
+
+				<div class="table-responsive">
+
+					<table class="table table-bordered table-hover">
+
+						<thead>
+
+							<tr>
+
+								<th>
+
+									<input type="checkbox"
+										class="form-check-input check-box"
+										onclick="selectAll(this)">
+
+								</th>
+
+								<th>S.No</th>
+
+								<th>Roll No</th>
+
+								<th>Name</th>
+
+								<th>Physics</th>
+
+								<th>Chemistry</th>
+
+								<th>Maths</th>
+
+								<th>Edit</th>
+
+							</tr>
+
+						</thead>
+
+
+						<tbody>
+
+						<%
+
+						while (it.hasNext()) {
+
+							MarksheetBean bean = it.next();
+
+						%>
+
+							<tr>
+
+								<td>
+
+									<input type="checkbox"
+										class="form-check-input check-box"
+										name="ids"
+										value="<%=bean.getId()%>">
+
+								</td>
+
+
+								<td>
+									<%=index++%>
+								</td>
+
+
+								<td>
+									<%=bean.getRollNo()%>
+								</td>
+
+
+								<td>
+									<%=bean.getName()%>
+								</td>
+
+
+								<td>
+									<%=bean.getPhysics()%>
+								</td>
+
+
+								<td>
+									<%=bean.getChemistry()%>
+								</td>
+
+
+								<td>
+									<%=bean.getMaths()%>
+								</td>
+
+
+								<td>
+
+									<a
+										href="<%=ORSView.MARKSHEET_CTL + "?id=" + bean.getId()%>"
+										class="btn btn-sm btn-outline-primary edit-btn">
+
+										<i class="bi bi-pencil-square me-1"></i>
+										Edit
+
+									</a>
+
+								</td>
+
+							</tr>
+
+						<%
+
+						}
+
+						%>
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+
+				<!-- Buttons -->
+
+				<div class="row mt-4">
+
+
+					<!-- Previous -->
+
+					<div class="col-md-4">
+
+						<button type="submit"
+							name="operation"
+							value="<%=BaseCtl.OP_PREVIOUS%>"
+							class="btn btn-secondary"
+							<%=pageNo == 1 ? "disabled" : ""%>>
+
+							<i class="bi bi-arrow-left me-2"></i>
+							Previous
+
+						</button>
+
+					</div>
+
+
+					<!-- Delete -->
+
+					<div class="col-md-4 text-center">
+
+						<button type="submit"
+							name="operation"
+							value="<%=BaseCtl.OP_DELETE%>"
+							class="btn btn-danger">
+
+							<i class="bi bi-trash me-2"></i>
+							Delete
+
+						</button>
+
+					</div>
+
+
+					<!-- Next -->
+
+					<div class="col-md-4 text-end">
+
+						<button type="submit"
+							name="operation"
+							value="<%=BaseCtl.OP_NEXT%>"
+							class="btn btn-secondary"
+							<%=list.size() < 10 ? "disabled" : ""%>>
+
+							Next
+							<i class="bi bi-arrow-right ms-2"></i>
+
+						</button>
+
+					</div>
+
+				</div>
+
+
+			</form>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+<%@ include file="Footer.jsp"%>
+
+
+
+
+
+<script>
+
+function selectAll(source) {
+
+	let checkboxes =
+		document.querySelectorAll('input[name="ids"]');
+
+	checkboxes.forEach(function(checkbox) {
+
+		checkbox.checked = source.checked;
+
+	});
+
+}
+
+</script>
 
 
 </body>
+
 </html>

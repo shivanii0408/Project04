@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.CollegeBean;
-import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
@@ -15,8 +14,8 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 	public long add(CollegeBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
-		
-	
+
+		long pk = 0;
 
 		CollegeBean existBean = findByName(bean.getName());
 
@@ -29,10 +28,10 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement(
-					"insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pstmt = conn
+					.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?,?,?,?)");
 
-			long pk = nextPK();
+			pk = nextPK();
 
 			pstmt.setLong(1, pk);
 			pstmt.setString(2, bean.getName());
@@ -40,7 +39,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			pstmt.setString(4, bean.getState());
 			pstmt.setString(5, bean.getCity());
 			pstmt.setString(6, bean.getPhoneNo());
-			
+
 			pstmt.setString(7, bean.getCreatedBy());
 			pstmt.setString(8, bean.getModifiedBy());
 			pstmt.setTimestamp(9, bean.getCreatedDatetime());
@@ -63,11 +62,10 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 		return pk;
 	}
 
-
 	@Override
 	public void update(CollegeBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
-		
+
 		CollegeBean existBean = findByName(bean.getName());
 
 		if (existBean != null && existBean.getId() != bean.getId()) {
@@ -92,7 +90,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			pstmt.setTimestamp(9, bean.getModifiedDatetime());
 			pstmt.setLong(10, bean.getId());
 			pstmt.executeUpdate();
-			conn.commit(); 
+			conn.commit();
 			pstmt.close();
 		} catch (Exception e) {
 			try {
@@ -104,55 +102,51 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
-		}
-	
-	
+	}
+
 	public CollegeBean findByName(String name) {
 
-	CollegeBean bean = findByUniqueColumn("name", name);
+		CollegeBean bean = findByUniqueColumn("name", name);
 
 		return bean;
 
 	}
-	
-	
+
 	@Override
 	public String getWhereClause(CollegeBean bean) {
 
 		StringBuffer sql = new StringBuffer(" ");
 
-	    if (bean != null) {
+		if (bean != null) {
 
-	        if (bean.getId() > 0) {
-	            sql.append(" and id = " + bean.getId());
-	        }
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
+			}
 
-	        if (bean.getName() != null && bean.getName().length() > 0) {
-	            sql.append(" and name like '" + bean.getName() + "'");
-	        }
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and name like '" + bean.getName() + "'");
+			}
 
-	        if (bean.getAddress() != null && bean.getAddress().length() > 0) {
-	            sql.append(" and address like '" + bean.getAddress() + "'");
-	        }
-	        
-	        if (bean.getState() != null && bean.getState().length() > 0) {
-	            sql.append(" and state like '" + bean.getState() + "'");
-	        }
-	        
-	        if (bean.getCity() != null && bean.getCity().length() > 0) {
-	            sql.append(" and city like '" + bean.getCity() + "'");
-	        }
-	        
-	        if (bean.getPhoneNo() != null && bean.getPhoneNo().length() > 0) {
-	            sql.append(" and phoneNo like '" + bean.getPhoneNo() + "'");
-	        }
-	    }
+			if (bean.getAddress() != null && bean.getAddress().length() > 0) {
+				sql.append(" and address like '" + bean.getAddress() + "'");
+			}
 
-	    return sql.toString();
+			if (bean.getState() != null && bean.getState().length() > 0) {
+				sql.append(" and state like '" + bean.getState() + "'");
+			}
+
+			if (bean.getCity() != null && bean.getCity().length() > 0) {
+				sql.append(" and city like '" + bean.getCity() + "'");
+			}
+
+			if (bean.getPhoneNo() != null && bean.getPhoneNo().length() > 0) {
+				sql.append(" and phoneNo like '" + bean.getPhoneNo() + "'");
+			}
+		}
+
+		return sql.toString();
 	}
-	
 
-	
 	@Override
 	public String getTable() {
 

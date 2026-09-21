@@ -7,12 +7,12 @@ import jakarta.servlet.annotation.WebServlet;
 public class WelcomeCtl extends BaseCtl {
 
 	@Override
-	protected String getView() {
+	protected String getView() { //view return krne k liye
 		return ORSView.WELCOME_VIEW;
 	}
 
 	@Override
-	protected BaseModel getModel() {
+	protected BaseModel getModel() { //model a object return krne k liye
 		return null;
 	}
 

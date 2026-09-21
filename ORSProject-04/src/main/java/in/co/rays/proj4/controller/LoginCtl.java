@@ -28,13 +28,17 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 		if (DataValidator.isNull(request.getParameter("login"))) {
 			pass = false;
 			request.setAttribute("login", "login is required");
+		}  else if (!DataValidator.isEmail(request.getParameter("login"))) {
+			pass = false;
+			request.setAttribute("login", "Enter valid login id ");
 		}
 		if (DataValidator.isNull(request.getParameter("password"))) {
 			pass = false;
 			request.setAttribute("password", "password is required");
-		} 
+		}
 
 		return pass;
+
 	}
 
 	@Override
@@ -68,26 +72,14 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//Step 1 - operation get
 		String op = DataUtility.getString(request.getParameter("operation"));
-		
-		//Step 2 - Session Object
 		HttpSession session = request.getSession();
 
-		//Step 3 - data populate kia
 		UserBean bean = populateBean(request);
 
-		//Step 4 - Operation check
 		if (OP_SIGN_IN.equalsIgnoreCase(op)) {
-			
-			//Step 4 - model object method call authenticate
-			UserModel m = getModel(); 
-			try {
-				bean = m.authenticate(bean.getLogin(), bean.getPassword());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			UserModel m = getModel();
+			bean = m.authenticate(bean.getLogin(), bean.getPassword());
 
 			if (bean != null) {
 				session.setAttribute("user", bean);
@@ -100,7 +92,8 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 				return;
 			} else {
 //				request.setAttribute("error", "Invalid login or password");
-				ServletUtility.setErrorMessage("Invalid login or password", request);
+				ServletUtility.setErrorMessage("Invalid login or password", request); //msg, request
+				//expression tag m print kia 
 			}
 		}
 
