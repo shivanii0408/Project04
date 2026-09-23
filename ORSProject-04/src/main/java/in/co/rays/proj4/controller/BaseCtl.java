@@ -15,6 +15,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Base controller class that provides common functionality
+ * for all controllers in the application.
+ *
+ * @param <B> Bean type that extends BaseBean
+ * @param <M> Model type that extends BaseModel
+ */
 public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends HttpServlet {
 
 	public static final String OP_SAVE = "Save";
@@ -36,17 +43,42 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 	public static final String MSG_SUCCESS = "success";
 	public static final String MSG_ERROR = "error";
 
+	/**
+	 * Validates the request data.
+	 *
+	 * @param request HTTP servlet request
+	 * @return true if request data is valid, otherwise false
+	 */
 	protected boolean validate(HttpServletRequest request) {
 		return true;
 	}
 
+	/**
+	 * Preloads the data required by the view.
+	 *
+	 * @param request HTTP servlet request
+	 */
 	protected void preload(HttpServletRequest request) {
 	}
 
+	/**
+	 * Populates the bean using request parameters.
+	 *
+	 * @param request HTTP servlet request
+	 * @return populated bean
+	 */
 	protected B populateBean(HttpServletRequest request) {
 		return null;
 	}
 
+	/**
+	 * Populates common audit information such as createdBy,
+	 * modifiedBy, createdDatetime and modifiedDatetime.
+	 *
+	 * @param dto data transfer object
+	 * @param request HTTP servlet request
+	 * @return populated DTO
+	 */
 	protected BaseBean populateDTO(BaseBean dto, HttpServletRequest request) {
 
 		String createdBy = request.getParameter("createdBy");
@@ -58,23 +90,37 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			modifiedBy = "root";
 		} else {
 			modifiedBy = userbean.getLogin();
-			// If record is created first time
+
 			if ("null".equalsIgnoreCase(createdBy) || DataValidator.isNull(createdBy)) {
 				createdBy = modifiedBy;
 			}
 		}
+
 		dto.setCreatedBy(createdBy);
 		dto.setModifiedBy(modifiedBy);
+
 		long cdt = DataUtility.getLong(request.getParameter("createdDatetime"));
+
 		if (cdt > 0) {
 			dto.setCreatedDatetime(DataUtility.getTimestamp(cdt));
 		} else {
 			dto.setCreatedDatetime(DataUtility.getCurrentTimestamp());
 		}
+
 		dto.setModifiedDatetime(DataUtility.getCurrentTimestamp());
+
 		return dto;
 	}
 
+	/**
+	 * Handles HTTP GET requests and forwards the request
+	 * to the appropriate view.
+	 *
+	 * @param request HTTP servlet request
+	 * @param response HTTP servlet response
+	 * @throws ServletException if a servlet error occurs
+	 * @throws IOException if an input or output error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -88,11 +134,20 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			ServletUtility.setBean(bean, request);
 		}
 
-		preload(request); // ADD THIS LINE
+		preload(request);
 
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests for adding or updating records.
+	 *
+	 * @param request HTTP servlet request
+	 * @param response HTTP servlet response
+	 * @throws ServletException if a servlet error occurs
+	 * @throws IOException if an input or output error occurs
+	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -109,11 +164,20 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			ServletUtility.setSuccessMessage("Data is successfully saved", request);
 		}
 
-		preload(request); // ADD THIS LINE
+		preload(request);
 
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Processes HTTP requests before calling doGet or doPost.
+	 * It performs validation and handles duplicate record exceptions.
+	 *
+	 * @param request HTTP servlet request
+	 * @param response HTTP servlet response
+	 * @throws ServletException if a servlet error occurs
+	 * @throws IOException if an input or output error occurs
+	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -124,7 +188,6 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 
 		if ("POST".equals(request.getMethod())) {
 			if (validate(request) == false) {
-
 				ServletUtility.forward(getView(), request, response);
 				return;
 			}
@@ -136,16 +199,32 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			ServletUtility.setErrorMessage(e.getMessage(), request);
 			ServletUtility.forward(getView(), request, response);
 		}
-
 	}
 
+	/**
+	 * Returns the JSP view associated with the controller.
+	 *
+	 * @return view path
+	 */
 	protected abstract String getView();
 
+	/**
+	 * Returns the model associated with the controller.
+	 *
+	 * @return model object
+	 */
 	protected abstract M getModel();
 
+	/**
+	 * Returns the message source instance used by the application.
+	 *
+	 * @param request HTTP servlet request
+	 * @return MessageSource instance
+	 */
 	public MessageSource getMessageSource(HttpServletRequest request) {
 
 		MessageSource messagesource = MessageSource.getInstance();
+
 		return messagesource;
 	}
 

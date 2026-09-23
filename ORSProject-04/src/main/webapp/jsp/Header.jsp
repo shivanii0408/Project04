@@ -437,9 +437,28 @@ String locale = ms.getLanguage();
 							href="<%=ORSView.FACULTY_LIST_CTL%>"> Faculty List </a></li>
 
 					</ul></li>
+					
+					<!-- Gym Member -->
+
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="facultyDropdown"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+						Gym Member </a>
+
+					<ul class="dropdown-menu" aria-labelledby="gymmemberDropdown">
+
+						<li><a class="dropdown-item" href="<%=ORSView.GYMMEMBER_CTL%>">
+
+								Add Gym Member</a></li>
+
+						<li><a class="dropdown-item"
+							href="<%=ORSView.GYMMEMBER_LIST_CTL%>"> Gym Member List </a></li>
+
+					</ul></li>
 
 
-				<!-- TIMETABLE -->
+			<%-- 	<!-- TIMETABLE -->
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="timetableDropdown"
@@ -456,7 +475,7 @@ String locale = ms.getLanguage();
 							href="<%=ORSView.TIMETABLE_LIST_CTL%>"> Timetable List </a></li>
 
 					</ul></li>
-
+ --%>
 
 				<!-- LOGOUT -->
 
