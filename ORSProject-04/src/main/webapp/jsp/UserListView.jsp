@@ -410,7 +410,7 @@ body {
 								<input type="submit" name="operation"
 									value="<%=BaseCtl.OP_PREVIOUS%>"
 									<%=pageNo == 1 ? "disabled" : ""%>
-									class="btn btn-outline-primary pagination-btn">
+									class="btn btn-outline-primary paginatijon-btn">
 
 							</div>
 

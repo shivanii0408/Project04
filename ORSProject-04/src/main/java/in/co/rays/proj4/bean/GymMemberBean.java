@@ -44,25 +44,26 @@ public class GymMemberBean extends BaseBean {
 	}
 	
 	
- public void setResultset(ResultSet rs) {
+	public void setResultset(ResultSet rs) {
 
 	    try {
 	        super.setResultset(rs);
-	        this.setMemberId("memberId");
-	        this.setName(rs.getString("NAME"));
-	        this.setMembershipType(rs.getString("MembershipType"));
-	        this.setJoiningDate(rs.getString("JoiningDate"));
-	        this.setTrainerName(rs.getString("TrainerName"));
+
+	        this.setMemberId(rs.getString("memberId"));
+	        this.setName(rs.getString("name"));
+	        this.setMembershipType(rs.getString("membershipType"));
+	        this.setJoiningDate(rs.getString("joiningDate"));
+	        this.setTrainerName(rs.getString("trainerName"));
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	}
-@Override
-public String getValue() {
-
-	return null;
-}
+	@Override
+	public String getValue() {
+		
+		return null;
+	}
  }
 	
 

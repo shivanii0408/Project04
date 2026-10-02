@@ -254,30 +254,23 @@ String locale = ms.getLanguage();
 
 
 				<!-- WELCOME DROPDOWN -->
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown"
-       role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <b>
-            <%=welcomeMsg + userBean.getFirstName() + " (" + roleName + ")"%>
-        </b>
-    </a>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="profileDropdown"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<b> <%=welcomeMsg + userBean.getFirstName() + " (" + roleName + ")"%>
+					</b>
+				</a>
 
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+					<ul class="dropdown-menu dropdown-menu-end"
+						aria-labelledby="profileDropdown">
 
-        <li>
-            <a class="dropdown-item" href="<%=ORSView.MY_PROFILE_CTL%>">
-                My Profile
-            </a>
-        </li>
+						<li><a class="dropdown-item"
+							href="<%=ORSView.MY_PROFILE_CTL%>"> My Profile </a></li>
 
-        <li>
-            <a class="dropdown-item" href="<%=ORSView.CHANGE_PASSWORD_CTL%>">
-                Change Password
-            </a>
-        </li>
+						<li><a class="dropdown-item"
+							href="<%=ORSView.CHANGE_PASSWORD_CTL%>"> Change Password </a></li>
 
-    </ul>
-</li>
+					</ul></li>
 
 
 				<!-- ROLE -->
@@ -437,28 +430,47 @@ String locale = ms.getLanguage();
 							href="<%=ORSView.FACULTY_LIST_CTL%>"> Faculty List </a></li>
 
 					</ul></li>
-					
-					<!-- Gym Member -->
+
+				<!-- Module-->
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="facultyDropdown"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-						Gym Member </a>
+						Module </a>
 
 					<ul class="dropdown-menu" aria-labelledby="gymmemberDropdown">
 
-						<li><a class="dropdown-item" href="<%=ORSView.GYMMEMBER_CTL%>">
-
-								Add Gym Member</a></li>
+						<li><a class="dropdown-item"
+							href="<%=ORSView.GYMMEMBER_CTL%>"> Add Gym Member</a></li>
 
 						<li><a class="dropdown-item"
 							href="<%=ORSView.GYMMEMBER_LIST_CTL%>"> Gym Member List </a></li>
 
+						<li><a class="dropdown-item" href="<%=ORSView.VOTER_CTL%>">
+								Add Voter </a></li>
+
+						<li><a class="dropdown-item"
+							href="<%=ORSView.VOTER_LIST_CTL%>"> Voter List </a></li>
+
+
+						<li><a class="dropdown-item"
+							href="<%=ORSView.FOODORDER_CTL%>"> Add Food Order </a></li>
+
+						<li><a class="dropdown-item"
+							href="<%=ORSView.FOODORDER_LIST_CTL%>"> Food Order List </a></li>
+
+						<li><a class="dropdown-item"
+							href="<%=ORSView.PATIENT_CTL%>"> Add  Patient </a></li>
+
+						<li><a class="dropdown-item"
+							href="<%=ORSView.PATIENT_LIST_CTL%>"> Patient List </a></li>
+
 					</ul></li>
 
 
-			<%-- 	<!-- TIMETABLE -->
+
+				<%-- 	<!-- TIMETABLE -->
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="timetableDropdown"

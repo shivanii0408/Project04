@@ -31,6 +31,15 @@ public interface ORSView {
 	public String GYMMEMBER_VIEW = PAGE_FOLDER + "/GymMemberView.jsp";
 	public String GYMMEMBER_LIST_VIEW = PAGE_FOLDER + "/GymMemberListView.jsp";
 	
+	public String VOTER_VIEW = PAGE_FOLDER + "/VoterView.jsp";
+	public String VOTER_LIST_VIEW = PAGE_FOLDER + "/VoterListView.jsp";
+	
+	public String FOODORDER_VIEW = PAGE_FOLDER + "/FoodOrderView.jsp";
+	public String FOODORDER_LIST_VIEW = PAGE_FOLDER + "/FoodOrderListView.jsp";
+	
+	public String PATIENT_VIEW = PAGE_FOLDER + "/PatientView.jsp";
+	public String PATIENT_LIST_VIEW = PAGE_FOLDER + "/PatientListView.jsp";
+	
 	public String USER_REGISTRATION_VIEW = PAGE_FOLDER + "/UserRegistrationView.jsp";
 	public String LOGIN_VIEW = PAGE_FOLDER + "/LoginView.jsp";
 	public String WELCOME_VIEW = PAGE_FOLDER + "/Welcome.jsp";
@@ -59,8 +68,19 @@ public interface ORSView {
 	public String SUBJECT_LIST_CTL = APP_CONTEXT + "/ctl/SubjectListCtl";
 	public String TIMETABLE_CTL = APP_CONTEXT + "/ctl/TimeTableCtl";
 	public String TIMETABLE_LIST_CTL = APP_CONTEXT + "/ctl/TimeTableListCtl";
+	
 	public String GYMMEMBER_CTL = APP_CONTEXT + "/ctl/GymMemberCtl";
 	public String GYMMEMBER_LIST_CTL = APP_CONTEXT + "/ctl/GymMemberListCtl";
+	
+	public String VOTER_CTL = APP_CONTEXT + "/ctl/VoterCtl";
+	public String VOTER_LIST_CTL = APP_CONTEXT + "/ctl/VoterListCtl";
+	
+	public String FOODORDER_CTL = APP_CONTEXT + "/ctl/FoodOrderCtl";
+	public String FOODORDER_LIST_CTL = APP_CONTEXT + "/ctl/FoodOrderListCtl";
+	
+	public String PATIENT_CTL = APP_CONTEXT + "/ctl/PatientCtl";
+	public String PATIENT_LIST_CTL = APP_CONTEXT + "/ctl/PatientListCtl";
+	
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
 	public String WELCOME_CTL = APP_CONTEXT + "/WelcomeCtl";

@@ -115,12 +115,27 @@ public class UserModel extends BaseModel<UserBean> {
 	}
 
 	public UserBean authenticate(String login, String password) throws ApplicationException {
-		UserBean bean = findByLogin(login);
-		if (bean != null && bean.getPassword().equals(password)) {
-			return bean;
-		} else {
-			return null;
-		}
+
+	    UserBean bean = findByLogin(login);
+
+	    System.out.println("Entered Login    : [" + login + "]");
+	    System.out.println("Entered Password : [" + password + "]");
+
+	    if (bean == null) {
+	        System.out.println("USER NOT FOUND");
+	        return null;
+	    }
+
+	    System.out.println("DB Login         : [" + bean.getLogin() + "]");
+	    System.out.println("DB Password      : [" + bean.getPassword() + "]");
+
+	    if (bean.getPassword() != null && bean.getPassword().equals(password)) {
+	        System.out.println("LOGIN SUCCESS");
+	        return bean;
+	    }
+
+	    System.out.println("PASSWORD NOT MATCHING");
+	    return null;
 	}
 
 	@Override
